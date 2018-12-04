@@ -9,8 +9,9 @@
 import UIKit
 
 class ArticleListViewController: UITableViewController, Storyboarded {
-    
+   
     var articleList : ArticleList?
+    var navigatorDelegate: NavigationDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

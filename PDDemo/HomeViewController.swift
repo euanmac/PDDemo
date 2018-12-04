@@ -29,11 +29,11 @@ struct TableViewDataRow : Equatable {
 }
 
 class HomeViewController: UITableViewController, Storyboarded {
-
+    
+    var navigatorDelegate: NavigationDelegate?
     var dataRows: [TableViewDataRow] = [TableViewDataRow]()
     var headers: [Header] = [Header]()
     var sections: [(header:Header, isCollapsed: Bool)] = [(header:Header, isCollapsed: Bool)]()
-    //weak var coordinator: MainCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +113,8 @@ class HomeViewController: UITableViewController, Storyboarded {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Get the article selected
         let header = headers[indexPath.section]
+        
+        
         
         if let articleSingle = header.articles[indexPath.row] as? ArticleSingle {
             let vc = ArticleViewController.instantiate()

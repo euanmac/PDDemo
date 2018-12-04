@@ -10,6 +10,7 @@ import UIKit
 
 class HeaderViewController: UITableViewController, Storyboarded {
     var header : Header?
+    var navigatorDelegate: NavigationDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

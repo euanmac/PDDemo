@@ -14,7 +14,7 @@ class ArticleViewController: UIViewController, Storyboarded {
 
     @IBOutlet weak var articleText: UITextView!
     var articleSingle : ArticleSingle?
-    
+     
     override func viewDidLoad() {
         
         super.viewDidLoad()

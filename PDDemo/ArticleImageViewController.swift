@@ -10,12 +10,12 @@ import UIKit
 import markymark
 
 class ArticleImageViewController: UIViewController, Storyboarded {
-    
 
     @IBOutlet weak var content: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     var articleImage : ArticleImage?
-    
+    var navigatorDelegate: NavigationDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Check we have a valid ecg instance and if so load data onto control
@@ -25,13 +25,11 @@ class ArticleImageViewController: UIViewController, Storyboarded {
         
     }
     
-    //Load data from ECG object
+    //Load data from Article object
     private func loadData(_ articleImage: ArticleImage) {
-        //Set text
+        //Set title text and content
         if articleImage.articleTitle != nil {navigationItem.title = articleImage.articleTitle!}
-        if let keyFeatures = articleImage.articleContent {
-            content.attributedText = articleImage.getAttributedContent()
-        }
+        content.attributedText = articleImage.getAttributedContent()
         
         //Get image and load asynchronously
         ContentfulDataManager.shared.fetchImage(for: (articleImage.articleImage)!) { (image) in
