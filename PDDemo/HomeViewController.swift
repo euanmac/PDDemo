@@ -113,21 +113,13 @@ class HomeViewController: UITableViewController, Storyboarded {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Get the article selected
         let header = headers[indexPath.section]
-        
-        
-        
-        if let articleSingle = header.articles[indexPath.row] as? ArticleSingle {
-            let vc = ArticleViewController.instantiate()
-            vc.articleSingle = articleSingle
-            self.navigationController?.pushViewController(vc, animated: true)
+
+        //Check we have a navigation delegate
+        if let navigatorDelegate = navigatorDelegate {
             
-        } else if let articleList = header.articles[indexPath.row] as? ArticleList {
-            let vc = ArticleListViewController.instantiate()
-            vc.articleList = articleList
+            //Use delegate to get the view controller we should be showing next
+            let vc = navigatorDelegate.navigate(to: header.articles[indexPath.row])
             self.navigationController?.pushViewController(vc, animated: true)
-            
-        } else {
-                fatalError("Unknown article type")
         }
     }
     

@@ -43,23 +43,15 @@ class HeaderViewController: UITableViewController, Storyboarded {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Get the article selected
-        if let articleSingle = header!.articles[indexPath.row] as? ArticleSingle {
-            let vc = ArticleViewController.instantiate()
-            vc.articleSingle = articleSingle
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-        } else if let articleList = header!.articles[indexPath.row] as? ArticleList {
-            let vc = ArticleListViewController.instantiate()
-            vc.articleList = articleList
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-        } else if let articleImage = header!.articles[indexPath.row] as? ArticleImage {
-            let vc = ArticleImageViewController.instantiate()
-            vc.articleImage = articleImage
-            self.navigationController?.pushViewController(vc, animated: true)
+        if let header = header {
         
-        } else {
-            fatalError("Unknown article type")
+            //Check we have a navigation delegate
+            if let navigatorDelegate = navigatorDelegate {
+                
+                //Use delegate to get the view controller we should be showing next
+                let vc = navigatorDelegate.navigate(to: header.articles[indexPath.row])
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
