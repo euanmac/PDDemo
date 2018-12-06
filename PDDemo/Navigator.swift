@@ -10,27 +10,27 @@ import UIKit
 
 //Delegate used by ViewControllers to find determine which view to push to
 protocol NavigationDelegate {
-    func navigate(from: Article, to: Article) -> UIViewController
+    func navigate (to article: Article) -> UIViewController
 }
 
 class Navigator: NavigationDelegate {
    
-    func navigate(from: Article, to: Article) -> UIViewController {
+    func navigate(to article: Article) -> UIViewController {
         
         var toVC: UIViewController
        
-        if let articleSingle = from as? ArticleSingle {
+        if let articleSingle = article as? ArticleSingle {
             let vc = ArticleViewController.instantiate()
             vc.articleSingle = articleSingle
             toVC = vc
             
-        } else if let articleList = from as? ArticleList {
+        } else if let articleList = article as? ArticleList {
             let vc = ArticleListViewController.instantiate()
             vc.articleList = articleList
             vc.navigatorDelegate = self
             toVC = vc
             
-        } else if let articleImage = from as? ArticleImage {
+        } else if let articleImage = article as? ArticleImage {
             let vc = ArticleImageViewController.instantiate()
             vc.articleImage = articleImage
             toVC = vc

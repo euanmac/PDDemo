@@ -33,9 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Get headers, sorted by ordinal
         let headers = ContentfulDataManager.shared.headers.sorted() { $0.ordinal < $1.ordinal}
         
-        //Create Home Nav and controller
+        //Create Home Nav and controller and give it a navigator object as delegate
         let homeNav = UINavigationController()
         let homeVC = HomeViewController.instantiate()
+        let navigator = Navigator()
+        homeVC.navigatorDelegate = navigator
+        
+        //Show home table view
         homeNav.pushViewController(homeVC, animated: false)
         homeNav.title = "Pocket Doctor"
         homeNav.tabBarItem = UITabBarItem(title: "Home", image: (UIImage(imageLiteralResourceName: "second")), tag: 0)
@@ -43,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Get all headers that are to be shown as tabs (i.e. where showOnTab is true)
         //and set up a NavigationView with embedded HeaderViewController
-        let navControllers : [UINavigationController] = headers.filter({$0.showOnTab}).enumerated().map() { (index, header) in
+        let navControllers : [UINavigationController] = headers.filter({$0.showOnTab}).enumerated().map { (index, header) in
             
             //Set up navigation controller
             let nav = UINavigationController()
@@ -51,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //Create header table view and give it a header object
             let headerView = HeaderViewController.instantiate()
             headerView.header = header
+            headerView.navigatorDelegate = navigator
             nav.pushViewController(headerView, animated: false)
             nav.title = header.headerTitle
             nav.tabBarItem = UITabBarItem(title: header.headerTitle, image: image, tag: index + 1)
