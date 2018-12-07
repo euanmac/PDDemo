@@ -50,7 +50,7 @@ class ArticleListViewController: UITableViewController, Storyboarded {
     
     //Populate the cells
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleListCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath)
         let listSection = articleList!.sections[indexPath.section]
         let article = articleList!.getArticles(by: listSection)[indexPath.row]
         
