@@ -17,9 +17,9 @@ class ArticleCheckListTableViewCell: UITableViewCell {
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var radioButton: CheckListButton!
+
     
-    
-    func update(with article: ArticleSingle) {
+    func update(with article: Article) {
         title.text = article.articleTitle ?? ""
         subtitle.text = article.subtitle ?? ""
         radioButton.isHidden = !article.isCheckList

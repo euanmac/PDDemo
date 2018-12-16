@@ -34,9 +34,7 @@ class ArticleListViewController: UITableViewController, Storyboarded {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let sectionKeys = Array(articleList!.sections.keys)
-//        let articleSection = sectionKeys[section]
-//        return (articleList!.sections[articleSection]?.count)!
+
         let listSection = articleList!.sections[section]
         return articleList!.getArticles(by: listSection).count
     }
@@ -56,10 +54,7 @@ class ArticleListViewController: UITableViewController, Storyboarded {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCheckListCell") as! ArticleCheckListTableViewCell
 
         //Populate the cell text and detail from the article
-        cell.title.text = article.articleTitle
-        if let subtitle = article.subtitle {
-            cell.subtitle.text = subtitle
-        }
+        cell.update(with: article)
 
         // Your logic....
         return cell

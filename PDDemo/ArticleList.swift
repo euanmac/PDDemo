@@ -8,18 +8,9 @@
 import Foundation
 import Contentful
 
-final class ArticleList: Article, EntryDecodable, FieldKeysQueryable {
+final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable {
    
     static let contentTypeId: String = "articleList"
-    
-    var id: String
-    var updatedAt: Date?
-    var createdAt: Date?
-    var localeCode: String?
-    let articleTitle: String?
-    let subtitle: String?
-    var listSection: ArticleListSection?
-    let isCheckList: Bool
     
     private var articlesOpt: [Article]?
         
@@ -46,18 +37,9 @@ final class ArticleList: Article, EntryDecodable, FieldKeysQueryable {
     
     public required init(from decoder: Decoder) throws {
         
-        let sys = try decoder.sys()
-        id = sys.id
-        updatedAt = sys.updatedAt
-        createdAt = sys.createdAt
+        try super.init(from: decoder)
         let fields      = try decoder.contentfulFieldsContainer(keyedBy: ArticleList.FieldKeys.self)
-        self.articleTitle       = try fields.decodeIfPresent(String.self, forKey: .articleTitle)
-        self.subtitle = try fields.decodeIfPresent(String.self, forKey: .subtitle)
-        self.isCheckList = try fields.decodeIfPresent(Bool.self, forKey: .isCheckList) ?? false
         try fields.resolveLinksArray(forKey: .articles, decoder: decoder) { [weak self] itemsArray in self?.articlesOpt = itemsArray as? [Article]
-        }
-        try fields.resolveLink(forKey: .listSection, decoder: decoder) { [weak self] linkedSection in
-            self?.listSection = linkedSection as? ArticleListSection
         }
        
     }

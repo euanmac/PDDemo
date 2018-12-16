@@ -10,38 +10,23 @@ import Foundation
 import Contentful
 import markymark
 
-final class ArticleSingle: Article, EntryDecodable, FieldKeysQueryable {
+final class ArticleSingle: ArticleBase, EntryDecodable, FieldKeysQueryable {
     
     static let contentTypeId: String = "article"
     
-    var id: String
-    var updatedAt: Date?
-    var createdAt: Date?
-    var localeCode: String?
-    let articleTitle: String?
-    let subtitle: String?
     var articleContent: String?
-    var listSection: ArticleListSection?
-    let isCheckList: Bool = false
     
     public required init(from decoder: Decoder) throws {
         
-        let sys = try decoder.sys()
-        id = sys.id
-        updatedAt = sys.updatedAt
-        createdAt = sys.createdAt
+        try super.init(from: decoder)
+      
         let fields  = try decoder.contentfulFieldsContainer(keyedBy: ArticleSingle.FieldKeys.self)
-        self.articleTitle   = try fields.decodeIfPresent(String.self, forKey: .articleTitle)
         self.articleContent = try fields.decodeIfPresent(String.self, forKey: .articleContent)
-        self.subtitle = try fields.decodeIfPresent(String.self, forKey: .subtitle)
-        try fields.resolveLink(forKey: .listSection, decoder: decoder) { [weak self] linkedSection in
-            self?.listSection = linkedSection as? ArticleListSection
-        }
     }
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
-        case articleTitle, articleContent, ordinal, subtitle, listSection, isCheckList
+        case articleContent 
     }
     
     //Convert MarkDown to AttributedString
