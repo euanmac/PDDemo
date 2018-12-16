@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PDDemo/ArticleSingle.swift"
-            timestampString = "563667837.190001"
+            timestampString = "566690858.199596"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
             landmarkName = "init(from:)"
             landmarkType = "7">
          </BreakpointContent>
