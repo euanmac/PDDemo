@@ -10,17 +10,6 @@ import Foundation
 import Contentful
 import markymark
 
-protocol Article {
-    var id: String {get}
-    var articleTitle: String? {get}
-    var subtitle: String? {get}
-    var listSection: ArticleListSection? {get}
-}
-
-//class ArticleBase : Article {
-//
-//}
-
 final class ArticleSingle: Article, EntryDecodable, FieldKeysQueryable {
     
     static let contentTypeId: String = "article"
@@ -33,6 +22,7 @@ final class ArticleSingle: Article, EntryDecodable, FieldKeysQueryable {
     let subtitle: String?
     var articleContent: String?
     var listSection: ArticleListSection?
+    let isCheckList: Bool = false
     
     public required init(from decoder: Decoder) throws {
         
@@ -51,7 +41,7 @@ final class ArticleSingle: Article, EntryDecodable, FieldKeysQueryable {
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
-        case articleTitle, articleContent, ordinal, subtitle, listSection
+        case articleTitle, articleContent, ordinal, subtitle, listSection, isCheckList
     }
     
     //Convert MarkDown to AttributedString

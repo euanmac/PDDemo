@@ -27,6 +27,7 @@ final class ArticleImage: Article, EntryDecodable, FieldKeysQueryable {
     var articleContent: String?
     var listSection: ArticleListSection?
     var articleImage: Asset?
+    let isCheckList: Bool = false
     
     public required init(from decoder: Decoder) throws {
         

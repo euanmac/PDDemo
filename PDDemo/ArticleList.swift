@@ -9,7 +9,7 @@ import Foundation
 import Contentful
 
 final class ArticleList: Article, EntryDecodable, FieldKeysQueryable {
-    
+   
     static let contentTypeId: String = "articleList"
     
     var id: String
@@ -19,6 +19,7 @@ final class ArticleList: Article, EntryDecodable, FieldKeysQueryable {
     let articleTitle: String?
     let subtitle: String?
     var listSection: ArticleListSection?
+    let isCheckList: Bool
     
     private var articlesOpt: [Article]?
         
@@ -52,18 +53,18 @@ final class ArticleList: Article, EntryDecodable, FieldKeysQueryable {
         let fields      = try decoder.contentfulFieldsContainer(keyedBy: ArticleList.FieldKeys.self)
         self.articleTitle       = try fields.decodeIfPresent(String.self, forKey: .articleTitle)
         self.subtitle = try fields.decodeIfPresent(String.self, forKey: .subtitle)
+        self.isCheckList = try fields.decodeIfPresent(Bool.self, forKey: .isCheckList) ?? false
         try fields.resolveLinksArray(forKey: .articles, decoder: decoder) { [weak self] itemsArray in self?.articlesOpt = itemsArray as? [Article]
         }
         try fields.resolveLink(forKey: .listSection, decoder: decoder) { [weak self] linkedSection in
             self?.listSection = linkedSection as? ArticleListSection
         }
-        
-        //let listSections = articles.filter({$0.listSection != nil}).map({$0.listSection!}))
+       
     }
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
-        case articleTitle, articles, subtitle, listSection
+        case articleTitle, articles, subtitle, listSection, isCheckList
     }
         
     

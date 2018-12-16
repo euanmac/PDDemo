@@ -70,13 +70,13 @@
         <scene sceneID="KQE-O0-Vcv">
             <objects>
                 <tableViewController storyboardIdentifier="ArticleListViewController" id="KIh-Il-X6Y" userLabel="ArticleList" customClass="ArticleListViewController" customModule="PDDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="JPh-LJ-T2k">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="JPh-LJ-T2k">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleCell" textLabel="Is0-HP-ibE" detailTextLabel="BVI-YU-fkG" style="IBUITableViewCellStyleSubtitle" id="Bj2-R2-Vrs">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bj2-R2-Vrs" id="2lh-YK-gEG">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -99,29 +99,57 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleCheckListCell" textLabel="a50-Oe-QEj" detailTextLabel="4GD-Lm-Mdy" style="IBUITableViewCellStyleSubtitle" id="G53-ZM-yFx">
-                                <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleCheckListCell" id="jiU-3G-4ea" userLabel="ArticleCheckListCell" customClass="ArticleCheckListTableViewCell" customModule="PDDemo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G53-ZM-yFx" id="SAL-sZ-13u">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jiU-3G-4ea" id="Tg9-Zw-IUa">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a50-Oe-QEj">
-                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4GD-Lm-Mdy">
-                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6C6-ce-mX0" userLabel="Stack View Horizontal">
+                                            <rect key="frame" x="16" y="4.5" width="343" height="34.5"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1X-6a-hXa" customClass="CheckListButton" customModule="PDDemo" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="34.5"/>
+                                                    <edgeInsets key="layoutMargins" top="8" left="300" bottom="8" right="8"/>
+                                                    <state key="normal" image="ic_radio_button_checked_white"/>
+                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1Ke-o2-cU0" userLabel="Stack View Vertical">
+                                                    <rect key="frame" x="32" y="0.0" width="311" height="34.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5c-2C-caW">
+                                                            <rect key="frame" x="0.0" y="0.0" width="311" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="Hello this is a very big line of text to see how it works and stop things happening that shouldnt" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixv-hP-bWX">
+                                                            <rect key="frame" x="0.0" y="20.5" width="311" height="14"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1Ke-o2-cU0" firstAttribute="trailing" secondItem="6C6-ce-mX0" secondAttribute="trailingMargin" id="0bk-Vx-HMP"/>
+                                                <constraint firstItem="1Ke-o2-cU0" firstAttribute="trailing" secondItem="6C6-ce-mX0" secondAttribute="trailingMargin" id="uGm-v2-8kn"/>
+                                            </constraints>
+                                        </stackView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="6C6-ce-mX0" firstAttribute="leading" secondItem="Tg9-Zw-IUa" secondAttribute="leadingMargin" id="5Px-t2-17J"/>
+                                        <constraint firstItem="6C6-ce-mX0" firstAttribute="centerY" secondItem="Tg9-Zw-IUa" secondAttribute="centerY" id="CpN-Vj-DAA"/>
+                                        <constraint firstItem="6C6-ce-mX0" firstAttribute="top" secondItem="Tg9-Zw-IUa" secondAttribute="top" constant="4.5" id="UWM-xc-9ll"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="6C6-ce-mX0" secondAttribute="trailing" id="n7N-7P-pwY"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="radioButton" destination="E1X-6a-hXa" id="FiP-bx-als"/>
+                                    <outlet property="subtitle" destination="ixv-hP-bWX" id="CYv-QD-ODw"/>
+                                    <outlet property="title" destination="p5c-2C-caW" id="krn-W5-M10"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -132,7 +160,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CvE-b1-9ST" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2804" y="-946"/>
+            <point key="canvasLocation" x="2804" y="-946.77661169415296"/>
         </scene>
         <!--ArticleSingle-->
         <scene sceneID="wg7-f3-ORb">
@@ -167,6 +195,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2804" y="-223.53823088455775"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="wPh-9m-v13">
+            <objects>
+                <viewController id="Jlm-Sv-Oqd" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yfw-fV-cBX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rii-jW-FeL">
+                                <rect key="frame" x="5" y="20" width="42" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Usy-wK-15S">
+                                        <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcQ-u2-BOQ">
+                                        <rect key="frame" x="0.0" y="20.5" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21z-cb-0Xw" customClass="CheckListButton" customModule="PDDemo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="41" width="42" height="30"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Sit-Wc-mcE"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Aar-r6-hbe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1000" y="-200"/>
         </scene>
         <!--ArticleImage-->
         <scene sceneID="KHK-PY-aQ0">
@@ -232,6 +298,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic_radio_button_checked_white" width="24" height="24"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>

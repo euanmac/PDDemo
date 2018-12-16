@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0048475521985FF900C6F55C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0048475421985FF800C6F55C /* HomeViewController.swift */; };
 		8DC9B9FCC265A761CB094149 /* Pods_PDDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA8D54E7B39F6141CEC1290 /* Pods_PDDemo.framework */; };
+		BE16C09C21BDD0A3009F68EF /* ArticleCheckListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE16C09B21BDD0A2009F68EF /* ArticleCheckListTableViewCell.swift */; };
+		BE16C09E21BF1610009F68EF /* CheckListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE16C09D21BF1610009F68EF /* CheckListButton.swift */; };
+		BE16C0A021C3999E009F68EF /* ArticleBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE16C09F21C3999E009F68EF /* ArticleBase.swift */; };
 		BE1CC757219B4EA5009D524A /* CollapsibleTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1CC756219B4EA5009D524A /* CollapsibleTableViewHeader.swift */; };
 		BE2157F421B48B7B00209109 /* ArticleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2157F321B48B7A00209109 /* ArticleImage.swift */; };
 		BE22628821A5DC230007B3EE /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE22628721A5DC230007B3EE /* HeaderViewController.swift */; };
@@ -33,6 +36,9 @@
 		0D85ED0133FF44DBAF8E1A49 /* Pods-PDDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PDDemo/Pods-PDDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		4AA8D54E7B39F6141CEC1290 /* Pods_PDDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PDDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B4FEBFCC322CE8C5E2C57DF /* Pods-PDDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PDDemo/Pods-PDDemo.release.xcconfig"; sourceTree = "<group>"; };
+		BE16C09B21BDD0A2009F68EF /* ArticleCheckListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCheckListTableViewCell.swift; sourceTree = "<group>"; };
+		BE16C09D21BF1610009F68EF /* CheckListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListButton.swift; sourceTree = "<group>"; };
+		BE16C09F21C3999E009F68EF /* ArticleBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleBase.swift; sourceTree = "<group>"; };
 		BE1CC756219B4EA5009D524A /* CollapsibleTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTableViewHeader.swift; sourceTree = "<group>"; };
 		BE2157F321B48B7A00209109 /* ArticleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleImage.swift; sourceTree = "<group>"; };
 		BE22628721A5DC230007B3EE /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +107,7 @@
 				BE2157F321B48B7A00209109 /* ArticleImage.swift */,
 				BE3333C42195FFC00081FBBC /* ArticleList.swift */,
 				BE3333C32195FFBF0081FBBC /* ArticleSingle.swift */,
+				BE16C09F21C3999E009F68EF /* ArticleBase.swift */,
 				BE532FB821A371960060E19C /* ArticleListSection.swift */,
 				BE33339B2192461D0081FBBC /* ArticleViewController.swift */,
 				BE3333AF2194BB0B0081FBBC /* ArticleImageViewController.swift */,
@@ -111,6 +118,8 @@
 				BE22628721A5DC230007B3EE /* HeaderViewController.swift */,
 				0048475421985FF800C6F55C /* HomeViewController.swift */,
 				BE33339D2192461D0081FBBC /* Main.storyboard */,
+				BE16C09B21BDD0A2009F68EF /* ArticleCheckListTableViewCell.swift */,
+				BE16C09D21BF1610009F68EF /* CheckListButton.swift */,
 				BE532FBB21A3E9500060E19C /* Navigator.swift */,
 				BE532FBA21A3E9500060E19C /* StoryBoarded.swift */,
 				BE3333A2219246260081FBBC /* LaunchScreen.storyboard */,
@@ -252,12 +261,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE3333C52195FFC10081FBBC /* ArticleSingle.swift in Sources */,
+				BE16C0A021C3999E009F68EF /* ArticleBase.swift in Sources */,
 				BE33339C2192461D0081FBBC /* ArticleViewController.swift in Sources */,
 				BE3333C62195FFC10081FBBC /* ArticleList.swift in Sources */,
 				BE3333C2219572610081FBBC /* Header.swift in Sources */,
 				BE3333C02194BB420081FBBC /* ContentfulDataManager.swift in Sources */,
 				BE22628A21AD21C50007B3EE /* ArticleListViewController.swift in Sources */,
 				BE532FB921A371960060E19C /* ArticleListSection.swift in Sources */,
+				BE16C09E21BF1610009F68EF /* CheckListButton.swift in Sources */,
 				BE22628821A5DC230007B3EE /* HeaderViewController.swift in Sources */,
 				0048475521985FF900C6F55C /* HomeViewController.swift in Sources */,
 				BE1CC757219B4EA5009D524A /* CollapsibleTableViewHeader.swift in Sources */,
@@ -266,6 +277,7 @@
 				BE2157F421B48B7B00209109 /* ArticleImage.swift in Sources */,
 				BE3333982192461D0081FBBC /* AppDelegate.swift in Sources */,
 				BE532FBD21A3E9510060E19C /* StoryBoarded.swift in Sources */,
+				BE16C09C21BDD0A3009F68EF /* ArticleCheckListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
