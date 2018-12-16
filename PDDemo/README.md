@@ -1,6 +1,14 @@
-#  Technical Overview
+#  PDDemo
 
-Contentful Object Structure
+This iOS application displays data from a Contentful "space"
+
+
+
+#  Contentful Model Overview
+
+The content model has been defined to provide structure yet still allow flexibility.
+Header is the top level object which has one or more articles. An article can be a single piece of content (specifically MarkDown) or instead a list of articles. This allows for a flexible recursive structure. Each article in an article list can be grouped under a section for improved readibility.
+The application uses this structure to render the content. Headers will populate the "home" tab. They can also be flagged to show as tabs in their own right.
 
 Header
 ->ArticleContent (Title)
@@ -12,12 +20,8 @@ Header
         ->ArticleContent
         ->ArticleList
         
-Header
-->ArticleAlbum (Title)
-    ->ArticleContent (Title,Image)
-    
-Example TBC
 
+#  Application Structure
     
 Aricles Table view
 takes a header and displays all articles listed
