@@ -2,8 +2,6 @@
 
 This iOS application displays data from a Contentful "space"
 
-
-
 #  Contentful Model Overview
 
 The content model has been defined to provide structure yet still allow flexibility.
@@ -25,6 +23,20 @@ Header
 -Persistance cell
 -ImageArticle Cell
 -Multi level articles
+
+
+#  How To Use
+Clone this repo using XCode, this will give the project files only so wont compile. Note the directory location. 
+There are two dependencies that then need to be installed using CocoaPods.
+To do this, first ensure install CocoaPods. This can be done easily by following the instructions at https://cocoapods.org.
+
+The dependencies are:
+
+Contentful - an API for calling downloading content from Contentful
+markymark - a MarkDown rendering package
+
+Open Terminal and go to your cloned project directory.
+
 
 
 #  Application Structure
