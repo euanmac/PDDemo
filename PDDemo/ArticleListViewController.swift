@@ -39,14 +39,16 @@ class ArticleListViewController: UITableViewController, Storyboarded {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Get the article selected
-        if let articles = articleList?.articles {
+        //Get the article selected, first check we have a non-nil list of articles
+        if let articleList = articleList {
             
             //Check we have a navigation delegate
             if let navigatorDelegate = navigatorDelegate {
+                let listSection = articleList.sections[indexPath.section]
+                let article = articleList.getArticles(by: listSection)[indexPath.row]
                 
                 //Use delegate to get the view controller we should be showing next (if one returned)
-                if let vc = navigatorDelegate.navigate(to: articles[indexPath.row]) {
+                if let vc = navigatorDelegate.navigate(to: article) {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
