@@ -25,7 +25,9 @@ class ArticleViewController: UIViewController, Storyboarded {
         }
         self.title = articleSingle?.articleTitle
         self.navigationItem.largeTitleDisplayMode = .never
-        articleText.attributedText = getAttributedText(text: (articleSingle?.articleContent)!)
+        if let content = articleSingle?.articleContent {
+            articleText.attributedText = getAttributedText(text: content)
+        }
     }
     
     //Convert MarkDown to AttributedString

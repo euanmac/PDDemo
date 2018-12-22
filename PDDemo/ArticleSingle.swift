@@ -18,8 +18,8 @@ final class ArticleSingle: ArticleBase, EntryDecodable, FieldKeysQueryable {
     
     public required init(from decoder: Decoder) throws {
         
+        //Init base properties
         try super.init(from: decoder)
-      
         let fields  = try decoder.contentfulFieldsContainer(keyedBy: ArticleSingle.FieldKeys.self)
         self.articleContent = try fields.decodeIfPresent(String.self, forKey: .articleContent)
     }

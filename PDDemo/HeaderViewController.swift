@@ -49,8 +49,9 @@ class HeaderViewController: UITableViewController, Storyboarded {
             if let navigatorDelegate = navigatorDelegate {
                 
                 //Use delegate to get the view controller we should be showing next
-                let vc = navigatorDelegate.navigate(to: header.articles[indexPath.row])
-                self.navigationController?.pushViewController(vc, animated: true)
+                if let vc = navigatorDelegate.navigate(to: header.articles[indexPath.row]) {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
         }
     }

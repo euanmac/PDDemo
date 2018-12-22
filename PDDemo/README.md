@@ -20,18 +20,23 @@ Header
         ->ArticleContent
         ->ArticleList
         
+#  To Do
+-Checklist cell
+-Persistance cell
+-ImageArticle Cell
+-Multi level articles
+
 
 #  Application Structure
     
-Aricles Table view
-takes a header and displays all articles listed
+HeaderViewController
+Takes a header and displays all articles listed - used as starting view controller for each tab (not home). No grouping.
 
 ArticleList Table view
-takes an article list and displays list groups as sections and the articles in the groups as cells
+Takes an article list and displays articles grouped by listsection.
 
-Article Content view
-displays the article content (markdown)
-
+ArticleViewController
+Displays single article content (markdown)
 
 App Delegate -
     Create TabBar and Navigation Controllers, one Home for all "Headers" and "Header" table view to show the header and articles under that header
