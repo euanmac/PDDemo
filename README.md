@@ -1,6 +1,6 @@
 #  PDDemo
 
-This iOS application displays data from a Contentful "space"
+This iOS application displays data from a Contentful "space".
 
 #  Contentful Model Overview
 
