@@ -23,17 +23,16 @@ Header
 #  How To Use
 Clone this repo in XCode from the Source Control menu. 
 The repo includes two dependencies. These are:
-    
-Contentful - an API for calling downloading content from Contentful
-markymark - a MarkDown rendering package
+* **Contentful** - an API for calling downloading content from Contentful
+* **markymark** - a MarkDown rendering package
 
 Both are included so the project/workspace should compile.
 The dependencies were installed originally using CocoaPods and the Podfile and Podfile.lock are included so there should be no need to redownload.
 
 #  To Do
--Checklist cell
--Persistance cell
--ImageArticle Cell
+* Checklist cell
+* Persistance cell
+* ImageArticle Cell
 
 #  Application Structure
     
