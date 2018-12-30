@@ -4,8 +4,10 @@ This iOS application displays data from a Contentful "space"
 
 #  Contentful Model Overview
 
-The content model has been defined to provide structure yet still allow flexibility.
-Header is the top level object which has one or more articles. An article can be a single piece of content (specifically MarkDown) or instead a list of articles. This allows for a flexible recursive structure. Each article in an article list can be grouped under a section for improved readibility.
+The content model is meant to be generic enough that it can be reused across different subject domains. 
+The structure is relatively simple:
+
+**Header** is the top level object which has one or more **articles**. An **article** can be a single piece of content (specifically MarkDown) or instead a list of articles. This allows for a flexible, recursive structure. Each article in an article list can be grouped under a section for improved readibility.
 The application uses this structure to render the content. Headers will populate the "home" tab. They can also be flagged to show as tabs in their own right.
 
 Header
@@ -18,26 +20,20 @@ Header
         ->ArticleContent
         ->ArticleList
         
+#  How To Use
+Clone this repo in XCode from the Source Control menu. 
+The repo includes two dependencies. These are:
+    
+Contentful - an API for calling downloading content from Contentful
+markymark - a MarkDown rendering package
+
+Both are included so the project/workspace should compile.
+The dependencies were installed originally using CocoaPods and the Podfile and Podfile.lock are included so there should be no need to redownload.
+
 #  To Do
 -Checklist cell
 -Persistance cell
 -ImageArticle Cell
--Multi level articles
-
-
-#  How To Use
-Clone this repo using XCode, this will give the project files only so wont compile. Note the directory location. 
-There are two dependencies that then need to be installed using CocoaPods.
-To do this, first ensure install CocoaPods. This can be done easily by following the instructions at https://cocoapods.org.
-
-The dependencies are:
-
-Contentful - an API for calling downloading content from Contentful
-markymark - a MarkDown rendering package
-
-Open Terminal and go to your cloned project directory.
-
-
 
 #  Application Structure
     
