@@ -42,6 +42,9 @@ class HeaderViewController: UITableViewController, Storyboarded {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //Deselect row
+        tableView.deselectRow(at: indexPath, animated: true)
         //Get the article selected
         if let header = header {
         

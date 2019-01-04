@@ -39,6 +39,9 @@ class ArticleListViewController: UITableViewController, Storyboarded {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         //Get the article selected, first check we have a non-nil list of articles
         if let articleList = articleList {
             

@@ -26,7 +26,7 @@ class CheckListButton: UIButton {
         let selectedImage = UIImage(named: "ic_radio_button_checked_white")?.withRenderingMode(.alwaysTemplate)
         self.setImage(deselectedImage, for: .normal)
         self.setImage(selectedImage, for: .selected)
-        self.isHidden = hidden
+        self.isHidden = hidden //Remove this if want to keep text aligned when no radio button
         self.tintColor = hidden ? UIColor.clear : UIColor(hex: 0x2E3944)
         self.addTarget(self, action: #selector(self.radioButtonTapped), for: .touchUpInside)
     }

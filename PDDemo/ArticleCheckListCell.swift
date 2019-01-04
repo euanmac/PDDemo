@@ -27,8 +27,9 @@ class ArticleCheckListCell: UITableViewCell {
         radioButton.setupButton(hidden: !article.isCheckList)
         radioButton.buttonValueChangedHandler = buttonValueChangedHandler
         
-        //show disclosure indicator if more content
+        //show disclosure indicator if more content. Disable selection if no more content
         self.accessoryType = article.hasContent ? .disclosureIndicator : .none
+        self.selectionStyle = article.hasContent ? .default : .none
         
     }
     
