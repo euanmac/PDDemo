@@ -19,11 +19,17 @@ class ArticleCheckListCell: UITableViewCell {
     @IBOutlet weak var radioButton: CheckListButton!
 
     func update(with article: Article) {
+        //Setup cell - set text to blank if no title or subtitle
         title.text = article.articleTitle ?? ""
         subtitle.text = article.subtitle ?? ""
+        
+        //setup radio button delegate to this class
         radioButton.setupButton(hidden: !article.isCheckList)
-        //set delegate to this class
         radioButton.buttonValueChangedHandler = buttonValueChangedHandler
+        
+        //show disclosure indicator if more content
+        self.accessoryType = article.hasContent ? .disclosureIndicator : .none
+        
     }
     
     func buttonValueChangedHandler(value: Bool) {

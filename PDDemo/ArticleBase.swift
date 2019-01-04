@@ -16,6 +16,7 @@ protocol Article {
     var subtitle: String? {get}
     var listSection: ArticleListSection? {get}
     var isCheckList: Bool {get}
+    var hasContent: Bool {get}
 }
 
 
@@ -44,6 +45,13 @@ class ArticleBase: Article  {
             self?.listSection = linkedSection as? ArticleListSection
         }
         
+    }
+    
+    //Override this in subclasses
+    var hasContent: Bool {
+        get {
+            return true
+        }
     }
     
     //Needs to be private so can be defined in subclasses

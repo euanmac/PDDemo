@@ -42,5 +42,11 @@ final class ArticleSingle: ArticleBase, EntryDecodable, FieldKeysQueryable {
         let attributedText = converter.convert(markdownItems)
         return attributedText
     }
-        
+    
+    //Overriden - true if content is not null
+    override var hasContent: Bool {
+        get {
+            return self.articleContent != nil
+        }
+    }
 }

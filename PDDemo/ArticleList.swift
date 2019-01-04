@@ -49,10 +49,12 @@ final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable {
         case articleTitle, articles, subtitle, listSection, isCheckList
     }
         
-    
-//    public func getArticles(by section: ArticleListSection) -> [{
-//        return articles.filter({$0.articleListSection != nil}).reduce([ArticleListSection]){$0.contains($1.articleListSection!) ? $0 : $0 + [$1.articleListSection]}
-//    }
+    //Overriden - true if content is not null
+    override var hasContent: Bool {
+        get {
+            return self.articles.count > 0
+        }
+    }
     
 
 }
