@@ -30,9 +30,11 @@ Both are included so the project/workspace should compile.
 The dependencies were installed originally using CocoaPods and the Podfile and Podfile.lock are included so there should be no need to redownload.
 
 #  To Do
-* Checklist cell
-* Persistance cell
+* Persistance 
+* Notes
+* Scroll content
 * ImageArticle Cell
+
 
 #  Application Structure
     
