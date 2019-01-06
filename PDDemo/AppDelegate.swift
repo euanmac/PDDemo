@@ -17,23 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //Download headers
-        ContentfulDataManager.shared.fetchHeaders() { () in
-            DispatchQueue.main.async {
-                //TODO: What if offline and no data
-                //Once data loaded prepare the GUI on main thread
-               self.prepareGUI()
-            }
-        }
-        return true
-    }
-    
-    private func prepareGUI() {
-    
-        //Get headers, sorted by ordinal
-        let headers = ContentfulDataManager.shared.headers.sorted() { $0.ordinal < $1.ordinal}
         
         //Create Home Nav and controller and give it a navigator object as delegate
+        UITabBar.appearance().tintColor = UIColor(hex: 0xDB324D) //0xA62639,0xA29C9B,0x2E3944,0xD1D1D1,0x4E6E5D
         let homeNav = UINavigationController()
         let homeVC = HomeViewController.instantiate()
         let navigator = Navigator()
@@ -41,16 +27,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Show home table view
         homeNav.pushViewController(homeVC, animated: false)
-        homeNav.title = "Pocket Doctor"
         homeNav.tabBarItem = UITabBarItem(title: "Home", image: (UIImage(imageLiteralResourceName: "second")), tag: 0)
         homeNav.navigationBar.prefersLargeTitles = true
+        homeNav.navigationBar.tintColor = UIColor(hex: 0xDB324D)
+        
+        
+        //Get the tabBar controller so that we can initialise UI
+        let tabBarController = window!.rootViewController as! UITabBarController
+        tabBarController.viewControllers = [homeNav]
+        //tabBarController.tabBar.items?[0].title = "Home"
+        homeNav.navigationItem.title = "Pocket Doctor"
+        
+        //Download headers
+        ContentfulDataManager.shared.fetchHeaders() { () in
+            DispatchQueue.main.async {
+                //TODO: What if offline and no data
+                //Once data loaded prepare the GUI on main thread
+               self.updateGUI()
+            }
+        }
+        return true
+    }
+    
+    private func updateGUI() {
+    
+        //Get headers, sorted by ordinal and filtered to only include those that need to be shown on tab bar
+        let headers = ContentfulDataManager.shared.headers.sorted(by: {$0.ordinal < $1.ordinal}).filter({$0.showOnTab})
+        let navigator = Navigator()
         
         //Get all headers that are to be shown as tabs (i.e. where showOnTab is true)
         //and set up a NavigationView with embedded HeaderViewController
-        let navControllers : [UINavigationController] = headers.filter({$0.showOnTab}).enumerated().map { (index, header) in
+        let navControllers : [UINavigationController] = headers.enumerated().map { (index, header) in
             
             //Set up navigation controller
             let nav = UINavigationController()
+            nav.navigationBar.tintColor = UIColor(hex: 0xDB324D)
             let image = UIImage(imageLiteralResourceName: (index % 2 == 0 ? "first" : "second"))
             //Create header table view and give it a header object
             let headerView = HeaderViewController.instantiate()
@@ -67,9 +78,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = window!.rootViewController as! UITabBarController
         
         //Combine Home view controller with others
-        tabBarController.viewControllers = [homeNav] + navControllers
+        tabBarController.viewControllers! += navControllers as [UIViewController]
         
     }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

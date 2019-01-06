@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		000786FC21D9790D00A21FE5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 000786FB21D9790D00A21FE5 /* README.md */; };
+		0007872D21E168E400A21FE5 /* ArticleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0007872C21E168E400A21FE5 /* ArticleImageCell.swift */; };
 		0048475521985FF900C6F55C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0048475421985FF800C6F55C /* HomeViewController.swift */; };
 		8DC9B9FCC265A761CB094149 /* Pods_PDDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA8D54E7B39F6141CEC1290 /* Pods_PDDemo.framework */; };
 		BE16C09C21BDD0A3009F68EF /* ArticleCheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE16C09B21BDD0A2009F68EF /* ArticleCheckListCell.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		000786FB21D9790D00A21FE5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0007872C21E168E400A21FE5 /* ArticleImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleImageCell.swift; sourceTree = "<group>"; };
 		0048475421985FF800C6F55C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0D85ED0133FF44DBAF8E1A49 /* Pods-PDDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PDDemo/Pods-PDDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		4AA8D54E7B39F6141CEC1290 /* Pods_PDDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PDDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 				BE3333AF2194BB0B0081FBBC /* ArticleImageViewController.swift */,
 				BE22628921AD21C50007B3EE /* ArticleListViewController.swift */,
 				BE16C09B21BDD0A2009F68EF /* ArticleCheckListCell.swift */,
+				0007872C21E168E400A21FE5 /* ArticleImageCell.swift */,
 				BE1CC756219B4EA5009D524A /* CollapsibleTableViewHeader.swift */,
 				BE3333BF2194BB420081FBBC /* ContentfulDataManager.swift */,
 				BE3333C12195725E0081FBBC /* Header.swift */,
@@ -273,6 +276,7 @@
 				BE16C09E21BF1610009F68EF /* CheckListButton.swift in Sources */,
 				BE22628821A5DC230007B3EE /* HeaderViewController.swift in Sources */,
 				0048475521985FF900C6F55C /* HomeViewController.swift in Sources */,
+				0007872D21E168E400A21FE5 /* ArticleImageCell.swift in Sources */,
 				BE1CC757219B4EA5009D524A /* CollapsibleTableViewHeader.swift in Sources */,
 				BE3333B72194BB0D0081FBBC /* ArticleImageViewController.swift in Sources */,
 				BE532FBE21A3E9510060E19C /* Navigator.swift in Sources */,
