@@ -9,6 +9,15 @@
 import UIKit
 import Contentful
 
+ enum Palette: Int {
+    case colour1 = 0x2E3944 //Dark blue (Onyx)
+    case colour2 = 0x4E6E5D //Dark green (Storm Cloud)
+    case colour3 = 0xDB324D //Red (Rusty Red)
+    case colour4 = 0xA29C9B //Grey (Spanish Grey)
+    case colour5 = 0xFFFFFF //White
+ }
+ 
+ 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         //Create Home Nav and controller and give it a navigator object as delegate
-        UITabBar.appearance().tintColor = UIColor(hex: 0xDB324D) //0xA62639,0xA29C9B,0x2E3944,0xD1D1D1,0x4E6E5D
+        UITabBar.appearance().tintColor = UIColor(hex: Palette.colour3.rawValue) //0xA62639,0xA29C9B,0x2E3944,0xD1D1D1,0x4E6E5D
         let homeNav = UINavigationController()
         let homeVC = HomeViewController.instantiate()
         let navigator = Navigator()
@@ -29,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         homeNav.pushViewController(homeVC, animated: false)
         homeNav.tabBarItem = UITabBarItem(title: "Home", image: (UIImage(imageLiteralResourceName: "second")), tag: 0)
         homeNav.navigationBar.prefersLargeTitles = true
-        homeNav.navigationBar.tintColor = UIColor(hex: 0xDB324D)
+        homeNav.navigationBar.tintColor = UIColor(hex: Palette.colour3.rawValue)
         
         
         //Get the tabBar controller so that we can initialise UI
@@ -61,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             //Set up navigation controller
             let nav = UINavigationController()
-            nav.navigationBar.tintColor = UIColor(hex: 0xDB324D)
+            nav.navigationBar.tintColor = UIColor(hex: Palette.colour3.rawValue)
             let image = UIImage(imageLiteralResourceName: (index % 2 == 0 ? "first" : "second"))
             //Create header table view and give it a header object
             let headerView = HeaderViewController.instantiate()

@@ -27,7 +27,7 @@ class CheckListButton: UIButton {
         self.setImage(deselectedImage, for: .normal)
         self.setImage(selectedImage, for: .selected)
         self.isHidden = hidden //Remove this if want to keep text aligned when no radio button
-        self.tintColor = hidden ? UIColor.clear : UIColor(hex: 0xDB324D)
+        self.tintColor = hidden ? UIColor.clear : UIColor(hex: Palette.colour3.rawValue)
         self.addTarget(self, action: #selector(self.radioButtonTapped), for: .touchUpInside)
     }
 

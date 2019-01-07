@@ -83,8 +83,8 @@ class ArticleListViewController: UITableViewController, Storyboarded {
     //Set section header colour and text
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
-            headerView.contentView.backgroundColor = UIColor(hex: 0x2E3944)
-            headerView.textLabel?.textColor = UIColor.white
+            headerView.contentView.backgroundColor = UIColor(hex: Palette.colour1.rawValue)
+            headerView.textLabel?.textColor = UIColor(hex: Palette.colour5.rawValue)
         }
     }
 }
