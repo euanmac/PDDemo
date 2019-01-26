@@ -40,37 +40,31 @@ class HomeViewController: UITableViewController, Storyboarded {
         self.title = "Pocket Doctor"
         
         //Get the data - use call back to populate data structures and reload tableview
-        ContentfulDataManager.shared.fetchHeaders() { () in
+        ContentfulDataManager.shared.fetchHeaders() { (success) in
             
-            print("\(ContentfulDataManager.shared.headers.count)")
+            if success {
+                print("\(ContentfulDataManager.shared.headers.count)")
+                
+                //Initialise local array to store header content, sort by ordinal
+                self.headers = ContentfulDataManager.shared.headers
+                self.headers.sort() {$0.ordinal < $1.ordinal}
+                self.sections = self.headers.map() {($0, true)}
             
-            //Initialise local array to store header content, sort by ordinal
-            self.headers = ContentfulDataManager.shared.headers
-            self.headers.sort() {$0.ordinal < $1.ordinal}
-            self.sections = self.headers.map() {($0, true)}
-            //Use the headers retrieved to populate table data model
-        
-            /*Funky code for populating data structure. However as it is  unreadable and tricky to get index from  use old school for loop instead
-            self.dataRows = self.headers.map() {TableViewDataRow(id: $0.id, isVisible: true, isHeader: true )}
-            self.dataRows = self.headers.reduce([TableViewDataRow]()) {(acc: [TableViewDataRow], header: Header) -> [TableViewDataRow] in
-                return acc + [TableViewDataRow(id: header.id, isVisible: true, isHeader: true)] +
-                    header.articles.map() {TableViewDataRow(id: $0.id, isVisible: false, isHeader: false)}
-            }
-            */
-            
-            //Loop through headers and articles and flatten into the TableViewDataRow structure
-            //Assumes empty initiated array
-            for (index, header) in self.headers.enumerated() {
-                self.dataRows.append(TableViewDataRow(headerIndex: index, isVisible: true, isHeader: true))
-                for (aindex, _) in header.articles.enumerated() {
-                    self.dataRows.append(TableViewDataRow(headerIndex: index, articleIndex: aindex, isVisible: false, isHeader: false))
+                //Loop through headers and articles and flatten into the TableViewDataRow structure
+                //Assumes empty initiated array
+                for (index, header) in self.headers.enumerated() {
+                    self.dataRows.append(TableViewDataRow(headerIndex: index, isVisible: true, isHeader: true))
+                    for (aindex, _) in header.articles.enumerated() {
+                        self.dataRows.append(TableViewDataRow(headerIndex: index, articleIndex: aindex, isVisible: false, isHeader: false))
+                    }
+                }
+                
+                //reload the table view on main thread
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
             }
-            
-            //reload the table view on main thread
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+
         }
     }
 

@@ -57,3 +57,34 @@ navigate (to:ArticleSingle)
 navigate (from: Article
     
 
+
+Pseudo code for getting and syncing data
+
+load_token from file
+if no token then load_headers
+    if load_headers 
+        load_token from web
+        save_token
+        save_headers
+        display_data
+    else
+        exit_error
+    end if
+else
+    if in_sync
+        load_headers_from_cache
+        display_data
+    else
+        load_headers from web
+        load_token_from web
+        save_token
+        save_headers
+        display_data
+    end if
+end if
+
+ sync_token is string
+ load from file
+ 
+
+

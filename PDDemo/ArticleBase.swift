@@ -9,7 +9,6 @@
 import Foundation
 import Contentful
 
-
 //Protocol defining article
 protocol Article {
     var articleTitle: String? {get}
@@ -17,11 +16,13 @@ protocol Article {
     var listSection: ArticleListSection? {get}
     var isCheckList: Bool {get}
     var hasContent: Bool {get}
+    
 }
 
+typealias ArticleEncodable = Article & Encodable
 
 //Base class for article
-class ArticleBase: Article  {
+class ArticleBase: ArticleEncodable {
     
     var id: String
     var updatedAt: Date?
@@ -32,6 +33,8 @@ class ArticleBase: Article  {
     let isCheckList: Bool
     var listSection: ArticleListSection?
     
+    
+    /**Initialies from decoder*/
     public required init(from decoder: Decoder) throws {
         let sys = try decoder.sys()
         id = sys.id
@@ -44,13 +47,27 @@ class ArticleBase: Article  {
         try fields.resolveLink(forKey: .listSection, decoder: decoder) { [weak self] linkedSection in
             self?.listSection = linkedSection as? ArticleListSection
         }
-        
+
+    }
+    
+    /** Initialise from an Entry object*/
+    public required init(from entry: Entry) {
+        let sys = entry.sys
+        id = sys.id
+        updatedAt = sys.updatedAt
+        createdAt = sys.createdAt
+        self.articleTitle = entry[FieldKeys.articleTitle]
+        self.subtitle = entry[FieldKeys.subtitle]
+        self.isCheckList = entry[FieldKeys.isCheckList] ?? false
+        if let lsEntry: Entry = entry[FieldKeys.listSection] {
+            self.listSection = ArticleListSection(from: lsEntry)
+        }
     }
     
     //Override this in subclasses
     var hasContent: Bool {
         get {
-            return true
+            return false
         }
     }
     
@@ -58,4 +75,28 @@ class ArticleBase: Article  {
     private enum FieldKeys: String, CodingKey {
         case articleTitle, subtitle, isCheckList, listSection
     }
+}
+
+public extension Entry {
+    /// A convenience subscript operator to access the fields dictionary directly and return an Int?
+    public subscript(key: CodingKey) -> Int? {
+        return fields[key.stringValue] as? Int
+    }
+
+    public subscript(key: CodingKey) -> String? {
+        return fields[key.stringValue] as? String
+    }
+
+    public subscript(key: CodingKey) -> Bool? {
+        return fields[key.stringValue] as? Bool
+    }
+    
+    public subscript(key: CodingKey) -> Entry? {
+        return fields.linkedEntry(at: key.stringValue)
+    }
+    
+    public subscript(key: CodingKey) -> [Entry]? {
+        return fields.linkedEntries(at: key.stringValue)
+    }
+    
 }

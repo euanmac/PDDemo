@@ -8,7 +8,7 @@
 import Foundation
 import Contentful
 
-final class ArticleListSection: EntryDecodable, FieldKeysQueryable, Equatable, Hashable {
+final class ArticleListSection: EntryDecodable, FieldKeysQueryable, Equatable, Hashable, Encodable {
     
     static let contentTypeId: String = "articleListSection"
     
@@ -34,6 +34,19 @@ final class ArticleListSection: EntryDecodable, FieldKeysQueryable, Equatable, H
     enum FieldKeys: String, CodingKey {
         case articleListSectionTitle
     }
+    
+    //Initialise from an Entry
+    public required init(from entry: Entry) {
+        
+        let sys = entry.sys
+        id = sys.id
+        updatedAt = sys.updatedAt
+        createdAt = sys.createdAt
+        showAsSection = true
+        self.articleListSectionTitle = entry[FieldKeys.articleListSectionTitle]
+        
+    }
+    
     
     //Implement equatable 
     static func == (lhs: ArticleListSection, rhs: ArticleListSection) -> Bool {

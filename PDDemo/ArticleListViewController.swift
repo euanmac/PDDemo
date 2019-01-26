@@ -75,7 +75,6 @@ class ArticleListViewController: UITableViewController, Storyboarded {
         //Populate the cell text and detail from the article
         cell.update(with: article)
 
-        // Your logic....
         return cell
 
     }

@@ -16,10 +16,10 @@ class HeaderViewController: UITableViewController, Storyboarded {
         super.viewDidLoad()
         
         //Check we have a valid header, if so load the table view
-        guard let _ = header else {
+        guard let header = header else {
             return
         }
-        self.title = header?.headerTitle
+        self.title = header.headerTitle
         self.tableView.reloadData()
     }
 
@@ -58,7 +58,7 @@ class HeaderViewController: UITableViewController, Storyboarded {
             }
         }
     }
-    
+
     
     /*
     // Override to support conditional editing of the table view.

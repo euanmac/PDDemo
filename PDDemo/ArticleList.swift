@@ -12,14 +12,14 @@ final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable {
    
     static let contentTypeId: String = "articleList"
     
-    private var articlesOpt: [Article]?
+    var articles: [Article] = [Article]()
         
     //Computed property to return array of articles, returns empty array even if no articles
-    var articles: [Article]  {
-        get {
-            return articlesOpt == nil ? [Article]() : articlesOpt!
-        }
-    }
+//    var articles: [Article]  {
+//        get {
+//            return articlesOpt == nil ? [Article]() : articlesOpt!
+//        }
+//    }
     
     //Computed property to return unique list of ArticleListSections
     var sections: [ArticleListSection] {
@@ -35,14 +35,26 @@ final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable {
         return articles.filter({$0.listSection == listSection})
     }
     
+    /**Initialise from decoder*/
     public required init(from decoder: Decoder) throws {
         
         try super.init(from: decoder)
         let fields      = try decoder.contentfulFieldsContainer(keyedBy: ArticleList.FieldKeys.self)
-        try fields.resolveLinksArray(forKey: .articles, decoder: decoder) { [weak self] itemsArray in self?.articlesOpt = itemsArray as? [Article]
+        try fields.resolveLinksArray(forKey: .articles, decoder: decoder) { [weak self] itemsArray in self?.articles = itemsArray as? [Article] ?? [Article]()
         }
        
     }
+    
+    /** Initialise from an Entry object*/
+    public init(from entry: Entry) {
+        //Init base class
+        super.init(from: entry)
+        if let sEntries: [Entry] = entry.fields.linkedEntries(at: <#T##FieldName#>)
+            self.articles = sEntries.map() {}
+            
+        }
+    }
+    
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
@@ -57,4 +69,10 @@ final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable {
     }
     
 
+}
+
+
+public class EntryResolver {
+    
+    
 }

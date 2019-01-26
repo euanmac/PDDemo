@@ -23,41 +23,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var cdm = ContentfulDataManager.shared
+    var homeVC: HomeViewController?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        //Initialise the GUI before trying to download the contentful data
+        initGUI()
         
-        //Create Home Nav and controller and give it a navigator object as delegate
-        UITabBar.appearance().tintColor = UIColor(hex: Palette.colour3.rawValue) //0xA62639,0xA29C9B,0x2E3944,0xD1D1D1,0x4E6E5D
-        let homeNav = UINavigationController()
-        let homeVC = HomeViewController.instantiate()
-        let navigator = Navigator()
-        homeVC.navigatorDelegate = navigator
-        
-        //Show home table view
-        homeNav.pushViewController(homeVC, animated: false)
-        homeNav.tabBarItem = UITabBarItem(title: "Home", image: (UIImage(imageLiteralResourceName: "second")), tag: 0)
-        homeNav.navigationBar.prefersLargeTitles = true
-        homeNav.navigationBar.tintColor = UIColor(hex: Palette.colour3.rawValue)
-        
-        
-        //Get the tabBar controller so that we can initialise UI
-        let tabBarController = window!.rootViewController as! UITabBarController
-        tabBarController.viewControllers = [homeNav]
-        //tabBarController.tabBar.items?[0].title = "Home"
-        homeNav.navigationItem.title = "Pocket Doctor"
+        ContentfulDataManager.shared.fetchSyncSpace() { (success) in
+            print(success)
+        }
         
         //Download headers
-        ContentfulDataManager.shared.fetchHeaders() { () in
+        ContentfulDataManager.shared.fetchHeaders() { (success) in
+            
             DispatchQueue.main.async {
-                //TODO: What if offline and no data
-                //Once data loaded prepare the GUI on main thread
-               self.updateGUI()
+                
+                //Check for success and if so update the GUI
+                if (success) {
+                    self.updateGUI()
+                } else {
+                    let alert = UIAlertController(title: "Error downloading data, message:", message: "Please check your internet connection and restart app.", preferredStyle: .alert)
+                }
             }
         }
         return true
     }
     
+    //Initialise the GUI with a Tabbar and on tab for the "Home" ViewController.
+    //This is minimum required
+    private func initGUI() {
+        
+        //Create Home Nav and controller and give it a navigator object as delegate
+        UITabBar.appearance().tintColor = UIColor(hex: Palette.colour3.rawValue) //0xA62639,0xA29C9B,0x2E3944,0xD1D1D1,0x4E6E5D
+        let homeNav = UINavigationController()
+        homeVC = HomeViewController.instantiate()
+
+        let navigator = Navigator()
+        homeVC!.navigatorDelegate = navigator
+        
+        //Show home table view
+        homeNav.pushViewController(homeVC!, animated: false)
+        homeNav.tabBarItem = UITabBarItem(title: "Home", image: (UIImage(imageLiteralResourceName: "second")), tag: 0)
+        homeNav.navigationBar.prefersLargeTitles = true
+        homeNav.navigationBar.tintColor = UIColor(hex: Palette.colour3.rawValue)
+        
+        //Get the tabBar controller so that we can initialise UI
+        let tabBarController = window!.rootViewController as! UITabBarController
+        tabBarController.viewControllers = [homeNav]
+        homeNav.navigationItem.title = "Pocket Doctor"
+        
+    }
+    
+    //Update the GUI with a ViewController per "Header" downloaded  
     private func updateGUI() {
     
         //Get headers, sorted by ordinal and filtered to only include those that need to be shown on tab bar

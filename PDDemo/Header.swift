@@ -8,7 +8,7 @@
 import Foundation
 import Contentful
 
-final class Header: EntryDecodable, FieldKeysQueryable {
+final class Header: EntryDecodable, FieldKeysQueryable, Encodable {
     
     static let contentTypeId: String = "header"
     
@@ -17,22 +17,16 @@ final class Header: EntryDecodable, FieldKeysQueryable {
     var createdAt: Date?
     var localeCode: String?
     let headerTitle: String?
+    let sys: Sys
     var showOnTab: Bool = false
     var showOnHome: Bool = true
     var ordinal: Int = 0
  
-    private var articlesOpt: [Article]?
-    
-    //Computed property to return combined array of list 
-    var articles: [Article]  {
-        get {
-            return articlesOpt == nil ? [Article]() : articlesOpt!
-        }
-    }
+    var articles: [ArticleBase] = [ArticleBase]()
     
     public required init(from decoder: Decoder) throws {
         
-        let sys = try decoder.sys()
+        sys = try decoder.sys()
         id = sys.id
         updatedAt = sys.updatedAt
         createdAt = sys.createdAt
@@ -52,7 +46,7 @@ final class Header: EntryDecodable, FieldKeysQueryable {
             self.ordinal = ordinal
         }
         
-        try fields.resolveLinksArray(forKey: .articles, decoder: decoder) { [weak self] itemsArray in self?.articlesOpt = itemsArray as? [Article]}
+        try fields.resolveLinksArray(forKey: .articles, decoder: decoder) { [weak self] itemsArray in self?.articles = itemsArray as? [ArticleBase] ?? [ArticleBase]()}
     }
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
