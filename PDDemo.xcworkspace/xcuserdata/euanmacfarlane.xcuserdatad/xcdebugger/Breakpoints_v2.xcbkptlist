@@ -86,43 +86,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PDDemo/ContentfulDataManager.swift"
-            timestampString = "569974166.127979"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "fetchHeaders(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PDDemo/ContentfulDataManager.swift"
-            timestampString = "569974166.135074"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "readHeadersFromCache()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PDDemo/Header.swift"
-            timestampString = "569974166.135545"
+            timestampString = "570322206.873502"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
@@ -137,13 +105,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PDDemo/ContentfulDataManager.swift"
-            timestampString = "569974166.135753"
+            filePath = "PDDemo/AppDelegate.swift"
+            timestampString = "570322206.875229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "fetchSyncSpace(completion:)"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PDDemo/ArticleImage.swift"
+            timestampString = "570322206.875495"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "FieldKeys"
+            landmarkType = "13">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PDDemo/AppDelegate.swift"
+            timestampString = "570322206.875617"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -154,12 +154,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PDDemo/ContentfulDataManager.swift"
-            timestampString = "569974212.129761"
+            timestampString = "570322206.875729"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "fetchSyncSpace(completion:)"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "initialSync()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -169,46 +169,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PDDemo/ContentfulDataManager.swift"
-            timestampString = "569974214.313042"
+            filePath = "PDDemo/AppDelegate.swift"
+            timestampString = "570322206.875828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "fetchSyncSpace(completion:)"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "updateGUI()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PDDemo.ContentfulDataManager.fetchSyncSpace(completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "PDDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/euanmacfarlane/Library/Mobile%20Documents/com~apple~CloudDocs/Development/PDDemo/PDDemo/ContentfulDataManager.swift"
-                  timestampString = "569974214.333547"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "457">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Contentful.Result&lt;Contentful.SyncSpace&gt;) -&gt; () in PDDemo.ContentfulDataManager.fetchSyncSpace(completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "PDDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/euanmacfarlane/Library/Mobile%20Documents/com~apple~CloudDocs/Development/PDDemo/PDDemo/ContentfulDataManager.swift"
-                  timestampString = "569974214.339209"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "55">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

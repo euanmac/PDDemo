@@ -31,12 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         initGUI()
         
         ContentfulDataManager.shared.fetchSyncSpace() { (success) in
-            print(success)
-        }
         
-        //Download headers
-        ContentfulDataManager.shared.fetchHeaders() { (success) in
-            
             DispatchQueue.main.async {
                 
                 //Check for success and if so update the GUI
@@ -46,7 +41,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let alert = UIAlertController(title: "Error downloading data, message:", message: "Please check your internet connection and restart app.", preferredStyle: .alert)
                 }
             }
+            
         }
+        
+//        //Download headers
+//        ContentfulDataManager.shared.fetchHeaders() { (success) in
+//            
+//            DispatchQueue.main.async {
+//                
+//                //Check for success and if so update the GUI
+//                if (success) {
+//                    self.updateGUI()
+//                } else {
+//                    let alert = UIAlertController(title: "Error downloading data, message:", message: "Please check your internet connection and restart app.", preferredStyle: .alert)
+//                }
+//            }
+//        }
         return true
     }
     

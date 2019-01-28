@@ -10,7 +10,7 @@ import Foundation
 import Contentful
 import markymark
 
-final class ArticleSingle: ArticleBase, EntryDecodable, FieldKeysQueryable {
+final class ArticleSingle: ArticleBase, EntryDecodable, FieldKeysQueryable, EntryMappable {
     
     static let contentTypeId: String = "article"
     
@@ -22,6 +22,14 @@ final class ArticleSingle: ArticleBase, EntryDecodable, FieldKeysQueryable {
         try super.init(from: decoder)
         let fields  = try decoder.contentfulFieldsContainer(keyedBy: ArticleSingle.FieldKeys.self)
         self.articleContent = try fields.decodeIfPresent(String.self, forKey: .articleContent)
+    }
+    
+    
+    /** Initialise from an Entry object*/
+    public required init(from entry: Entry) {
+        //Init base class
+        super.init(from: entry)
+        self.articleContent = entry[FieldKeys.articleContent]
     }
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.

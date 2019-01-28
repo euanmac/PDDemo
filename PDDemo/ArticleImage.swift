@@ -10,11 +10,7 @@ import Foundation
 import Contentful
 import markymark
 
-//class ArticleBase : Article {
-//
-//}
-
-final class ArticleImage: ArticleBase, EntryDecodable, FieldKeysQueryable {
+final class ArticleImage: ArticleBase, EntryDecodable, FieldKeysQueryable, EntryMappable {
     
     static let contentTypeId: String = "articleImage"
     
@@ -32,11 +28,19 @@ final class ArticleImage: ArticleBase, EntryDecodable, FieldKeysQueryable {
         }
     }
     
+    /** Initialise from an Entry object*/
+    public required init(from entry: Entry) {
+        //Init base class
+        super.init(from: entry)
+        self.articleContent = entry[FieldKeys.articleContent]
+        self.articleImage = entry[FieldKeys.articleImage]
+    
+    }
+    
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
         case articleContent, articleImage
     }
-    
     
     //Convert MarkDown to AttributedString
     func getAttributedContent(styling: Styling = DefaultStyling()) -> NSAttributedString {

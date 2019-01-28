@@ -49,6 +49,37 @@ final class Header: EntryDecodable, FieldKeysQueryable, Encodable {
         try fields.resolveLinksArray(forKey: .articles, decoder: decoder) { [weak self] itemsArray in self?.articles = itemsArray as? [ArticleBase] ?? [ArticleBase]()}
     }
     
+    public required init(from entry: Entry) {
+        
+        sys = entry.sys
+        id = sys.id
+        updatedAt = sys.updatedAt
+        createdAt = sys.createdAt
+        
+        print (entry.sys.contentTypeId)
+        
+        
+        let fields      =  entry.fields
+        self.headerTitle =  entry[FieldKeys.headerTitle]
+        
+        self.showOnTab = entry[FieldKeys.showOnTab] ?? false
+        
+        self.showOnHome   = entry[FieldKeys.showOnHome] ?? false
+    
+        self.ordinal    = entry[FieldKeys.ordinal] ?? 0
+
+//        self.articles = entry.fields.linkedEntries(at: "articles").map({entry in
+//            return entry.mapTo(types: ArticleList.self)})
+//
+        if let entries = entry.fields.linkedEntries(at: FieldKeys.articles.stringValue) {
+            
+            self.articles =  entries.map({$0.mapTo(types: [ArticleList.self, ArticleSingle.self, ArticleImage.self])}) as?
+                    [ArticleBase] ?? [ArticleBase]()
+            
+        }
+        print(articles.count)
+    }
+    
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
         case headerTitle, articles, ordinal, showOnTab, showOnHome

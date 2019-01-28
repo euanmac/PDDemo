@@ -10,6 +10,58 @@ import Foundation
 import Contentful
 import UIKit
 
+protocol EntryMappable : EntryDecodable {
+    init (from: Entry)
+}
+
+public extension Entry {
+    
+    /// A set of convenience subscript operators to access the fields dictionary directly and return a value
+    /// for a given Coding Key
+    public subscript(key: CodingKey) -> Int? {
+        return fields[key.stringValue] as? Int
+    }
+    
+    public subscript(key: CodingKey) -> String? {
+        return fields[key.stringValue] as? String
+    }
+    
+    public subscript(key: CodingKey) -> Bool? {
+        return fields[key.stringValue] as? Bool
+    }
+    
+    public subscript(entryKey key: CodingKey) -> Entry? {
+        return fields.linkedEntry(at: key.stringValue)
+    }
+    
+    public subscript(key: CodingKey) -> [Entry]? {
+        return fields.linkedEntries(at: key.stringValue)
+    }
+    
+    public subscript(key: CodingKey) -> Asset? {
+        return fields.linkedAsset(at: key.stringValue)
+    }
+    
+    public subscript(key: CodingKey) -> [Asset]? {
+        return fields.linkedAssets(at: key.stringValue)
+    }
+    
+    //Maps a list of linked sub entries
+    internal func mapTo (types: [EntryMappable.Type]) -> EntryMappable?
+    {
+        //Ensure we are passed a type that maps to the entry type
+        guard let mapType = types.first(where: {$0.contentTypeId == self.sys.contentTypeId}) else {
+            return nil
+        }
+        
+        //Init the type found using the entry and cast to T
+        return mapType.init(from: self)
+        
+    }
+    
+}
+
+
 final class ContentfulDataManager {
     
     typealias AssetID = String
@@ -55,7 +107,7 @@ final class ContentfulDataManager {
             switch result {
                 
             case .success(let syncSpace):
-                print(syncSpace.entries.count)
+                self.headers = self.initHeaders(from: syncSpace)
                 completion(true)
                 
             case .error(let error):
@@ -66,20 +118,20 @@ final class ContentfulDataManager {
         
     }
     
-    func decodeSpace(space: SyncSpace) -> [Header] {
+    //Class to map contentful entries to an object model
+    class ContentfulDataMapper {
         
-        //Hardcode
-        let contentTypeClasses: [EntryDecodable.Type]? = [
-            Header.self,
-            ArticleSingle.self,
-            ArticleList.self,
-            ArticleListSection.self,
-            ArticleImage.self
-        ]
-    
+        let types: [EntryDecodable.Type]
+        init(contentTypeClasses: [EntryDecodable.Type]) {
+            self.types = contentTypeClasses
+        }
     }
     
-    
+    private func initHeaders(from space: SyncSpace) -> [Header] {
+        return space.entries.filter({$0.sys.contentTypeId == "header"}).map() {entry in
+            return Header(from: entry)
+        }
+    }
     
     //Download Headers and articles
     func fetchHeaders(completion: @escaping ((Bool) -> Void)) {

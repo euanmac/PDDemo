@@ -59,7 +59,7 @@ class ArticleBase: ArticleEncodable {
         self.articleTitle = entry[FieldKeys.articleTitle]
         self.subtitle = entry[FieldKeys.subtitle]
         self.isCheckList = entry[FieldKeys.isCheckList] ?? false
-        if let lsEntry: Entry = entry[FieldKeys.listSection] {
+        if let lsEntry = entry[entryKey: FieldKeys.listSection] {
             self.listSection = ArticleListSection(from: lsEntry)
         }
     }
@@ -77,26 +77,4 @@ class ArticleBase: ArticleEncodable {
     }
 }
 
-public extension Entry {
-    /// A convenience subscript operator to access the fields dictionary directly and return an Int?
-    public subscript(key: CodingKey) -> Int? {
-        return fields[key.stringValue] as? Int
-    }
 
-    public subscript(key: CodingKey) -> String? {
-        return fields[key.stringValue] as? String
-    }
-
-    public subscript(key: CodingKey) -> Bool? {
-        return fields[key.stringValue] as? Bool
-    }
-    
-    public subscript(key: CodingKey) -> Entry? {
-        return fields.linkedEntry(at: key.stringValue)
-    }
-    
-    public subscript(key: CodingKey) -> [Entry]? {
-        return fields.linkedEntries(at: key.stringValue)
-    }
-    
-}

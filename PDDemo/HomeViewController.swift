@@ -40,7 +40,7 @@ class HomeViewController: UITableViewController, Storyboarded {
         self.title = "Pocket Doctor"
         
         //Get the data - use call back to populate data structures and reload tableview
-        ContentfulDataManager.shared.fetchHeaders() { (success) in
+        ContentfulDataManager.shared.fetchSyncSpace { (success) in
             
             if success {
                 print("\(ContentfulDataManager.shared.headers.count)")

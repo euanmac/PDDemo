@@ -8,18 +8,12 @@
 import Foundation
 import Contentful
 
-final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable {
+final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable, EntryMappable {
    
     static let contentTypeId: String = "articleList"
     
     var articles: [Article] = [Article]()
-        
-    //Computed property to return array of articles, returns empty array even if no articles
-//    var articles: [Article]  {
-//        get {
-//            return articlesOpt == nil ? [Article]() : articlesOpt!
-//        }
-//    }
+    
     
     //Computed property to return unique list of ArticleListSections
     var sections: [ArticleListSection] {
@@ -46,12 +40,13 @@ final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable {
     }
     
     /** Initialise from an Entry object*/
-    public init(from entry: Entry) {
+    public required init(from entry: Entry) {
         //Init base class
         super.init(from: entry)
-        if let sEntries: [Entry] = entry.fields.linkedEntries(at: <#T##FieldName#>)
-            self.articles = sEntries.map() {}
+        if let entries = entry.fields.linkedEntries(at: FieldKeys.articles.stringValue) {
             
+            self.articles =  entries.map({$0.mapTo(types: [ArticleList.self, ArticleSingle.self, ArticleImage.self])}) as?
+                [Article] ?? [Article]()
         }
     }
     
@@ -67,12 +62,5 @@ final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable {
             return self.articles.count > 0
         }
     }
-    
 
-}
-
-
-public class EntryResolver {
-    
-    
 }
