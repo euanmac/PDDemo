@@ -8,9 +8,8 @@
 import Foundation
 import Contentful
 
-final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable, EntryMappable {
+final class ArticleList: ArticleBase {
    
-    static let contentTypeId: String = "articleList"
     
     var articles: [Article] = [Article]()
     
@@ -39,21 +38,25 @@ final class ArticleList: ArticleBase, EntryDecodable, FieldKeysQueryable, EntryM
        
     }
     
-    /** Initialise from an Entry object*/
+    // Initialise from an Entry object
     public required init(from entry: Entry) {
         //Init base class
         super.init(from: entry)
         if let entries = entry.fields.linkedEntries(at: FieldKeys.articles.stringValue) {
-            
-            self.articles =  entries.map({$0.mapTo(types: [ArticleList.self, ArticleSingle.self, ArticleImage.self])}) as?
-                [Article] ?? [Article]()
+            self.articles =  entries.compactMap({$0.mapTo(types: ArticleTypes.self)}) as! [Article]
         }
     }
     
+    //Encode properties to JSON
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: FieldKeys.self)
+        try super.encode(to: encoder)
+        try container.encode(articles as! [ArticleBase], forKey: .articles)
+    }
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
-        case articleTitle, articles, subtitle, listSection, isCheckList
+        case articles
     }
         
     //Overriden - true if content is not null

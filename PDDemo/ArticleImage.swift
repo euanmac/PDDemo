@@ -10,7 +10,7 @@ import Foundation
 import Contentful
 import markymark
 
-final class ArticleImage: ArticleBase, EntryDecodable, FieldKeysQueryable, EntryMappable {
+final class ArticleImage: ArticleBase {
     
     static let contentTypeId: String = "articleImage"
     
@@ -37,9 +37,21 @@ final class ArticleImage: ArticleBase, EntryDecodable, FieldKeysQueryable, Entry
     
     }
     
+    //Encode to JSON
+    override func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: FieldKeys.self)
+        try super.encode(to: encoder)
+        try container.encode(articleContent, forKey: .articleContent)
+        try container.encode(ArticleImage.contentTypeId, forKey: .articleContent)
+        //try container.encode(articleImage, forKey: .articleImage)
+        //try container.encode(showOnHome, forKey: .showOnHome)
+        //try container.encode(articles, forKey: .articles)
+    }
+    
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
-        case articleContent, articleImage
+        case articleContent, articleImage, contentTypeId
     }
     
     //Convert MarkDown to AttributedString

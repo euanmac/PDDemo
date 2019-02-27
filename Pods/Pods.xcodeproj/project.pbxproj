@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -215,7 +215,7 @@
 		08D7352DD71F30677CC0446BDCEBFDB4 /* UnorderedListMarkDownItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UnorderedListMarkDownItem.swift; path = "markymark/Classes/MarkDown Items/UnorderedListMarkDownItem.swift"; sourceTree = "<group>"; };
 		09AB86ED6919A46C4C0B138BC32DA7ED /* Util.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Util.swift; path = Sources/Contentful/Util.swift; sourceTree = "<group>"; };
 		0A8BAABF8474C7ABE746F01FB51CB9E9 /* LinkMarkDownItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LinkMarkDownItem.swift; path = "markymark/Classes/MarkDown Items/LinkMarkDownItem.swift"; sourceTree = "<group>"; };
-		0AC2074E91D269C513A42404064906D2 /* Contentful.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Contentful.framework; path = Contentful.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AC2074E91D269C513A42404064906D2 /* Contentful.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Contentful.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B84E38DE8FB4A1B3382A8E4FACB0A1E /* Error.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Sources/Contentful/Error.swift; sourceTree = "<group>"; };
 		0B9DA315B5EC247EBD7184735B27F0A6 /* Pods-PDDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PDDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0CF49D9AA15D21344243EE33A82B2259 /* Client+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Client+UIKit.swift"; path = "Sources/Contentful/UIKit/Client+UIKit.swift"; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		1439337BD8B9F148ADA87050E9BC1ACA /* StrikeThroughStyling.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StrikeThroughStyling.swift; path = markymark/Classes/Styling/StrikeThroughStyling.swift; sourceTree = "<group>"; };
 		152ECF88454CEF6291B4C4885867BB35 /* StrikeMarkDownItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StrikeMarkDownItem.swift; path = "markymark/Classes/MarkDown Items/StrikeMarkDownItem.swift"; sourceTree = "<group>"; };
 		17557682C5DDB6DF9CB366750E9B5F4C /* MarkDownTextView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MarkDownTextView.swift; path = "markymark/Classes/Default implementations/MarkDownTextView.swift"; sourceTree = "<group>"; };
-		179C34D18AF2FAF3DB60C26A85829F10 /* markymark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = markymark.framework; path = markymark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		179C34D18AF2FAF3DB60C26A85829F10 /* markymark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = markymark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AD863A95B634652DFF4B20341BBFBFD /* NSRegularExpression+extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSRegularExpression+extensions.swift"; path = "markymark/Classes/Extensions/NSRegularExpression+extensions.swift"; sourceTree = "<group>"; };
 		1B9B9A7BC006F608AD707765384E63F7 /* LetterSpacingStylingRule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LetterSpacingStylingRule.swift; path = markymark/Classes/Styling/Protocols/LetterSpacingStylingRule.swift; sourceTree = "<group>"; };
 		1C10EBF88253364CBD77B4A0CBF98F07 /* ItalicStyling.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ItalicStyling.swift; path = markymark/Classes/Styling/ItalicStyling.swift; sourceTree = "<group>"; };
@@ -330,7 +330,7 @@
 		909B981E9D7DB2809294DD004D3C1707 /* AutolayoutViewAppender.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AutolayoutViewAppender.swift; path = "markymark/Classes/Layout helpers/AutolayoutViewAppender.swift"; sourceTree = "<group>"; };
 		90D13455FD47103562F339FB75D93FC1 /* InlineMarkDownItemFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = InlineMarkDownItemFactory.swift; path = markymark/Classes/InlineMarkDownItemFactory.swift; sourceTree = "<group>"; };
 		919A1C847F8339C264DD4AF19E44480C /* ListStyling.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ListStyling.swift; path = markymark/Classes/Styling/ListStyling.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		95B1C2F334283C9984C7613AFA355622 /* ParagraphStyling.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParagraphStyling.swift; path = markymark/Classes/Styling/ParagraphStyling.swift; sourceTree = "<group>"; };
 		9637BB17B5CD06C4DA014F08503770B4 /* LineHeightStylingRule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineHeightStylingRule.swift; path = markymark/Classes/Styling/Protocols/LineHeightStylingRule.swift; sourceTree = "<group>"; };
 		968D99F9590E67E7CE0B853C03B6824C /* ListMarkDownItemFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ListMarkDownItemFactory.swift; path = markymark/Classes/ListMarkDownItemFactory.swift; sourceTree = "<group>"; };
@@ -354,7 +354,7 @@
 		B3192512AA9C39D70A7F341D7D378B38 /* markymark.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = markymark.xcconfig; sourceTree = "<group>"; };
 		B4D16879F49715CB53967E7011F91B58 /* ItalicMarkDownItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ItalicMarkDownItem.swift; path = "markymark/Classes/MarkDown Items/ItalicMarkDownItem.swift"; sourceTree = "<group>"; };
 		B55BDD1044521FBBAD36EE1F2F5BA0E2 /* CodeAttributedStringLayoutBlockBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodeAttributedStringLayoutBlockBuilder.swift; path = "markymark/Classes/Layout Builders/AttributedString/Block Builders/Inline/CodeAttributedStringLayoutBlockBuilder.swift"; sourceTree = "<group>"; };
-		B67EC419393E0025429F689FF907B063 /* Pods_PDDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_PDDemo.framework; path = "Pods-PDDemo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B67EC419393E0025429F689FF907B063 /* Pods_PDDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PDDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0B2CC3CDCAAD93FFE4019BA7DD6A90 /* Decodable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Decodable.swift; path = Sources/Contentful/Decodable.swift; sourceTree = "<group>"; };
 		BBAD69C1BA769406E70A8ACE761CA2CE /* Asset.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Asset.swift; path = Sources/Contentful/Asset.swift; sourceTree = "<group>"; };
 		BE80EBA6FEA467A6B97B69E2AA4C497C /* MarkDownLines.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MarkDownLines.swift; path = markymark/Classes/MarkDownLines.swift; sourceTree = "<group>"; };
@@ -508,7 +508,6 @@
 				A7A4E922460910094ADD3F33D023E3F0 /* ImageOptions */,
 				BE00063388306DCB12B81EEA443006EC /* Support Files */,
 			);
-			name = Contentful;
 			path = Contentful;
 			sourceTree = "<group>";
 		};
@@ -688,7 +687,6 @@
 				60CDA03110FFAC897E9937BD4DD00D9D /* ViewAppenderComposer.swift */,
 				E9A47475450D683F22779D0A75D58D92 /* Support Files */,
 			);
-			name = markymark;
 			path = markymark;
 			sourceTree = "<group>";
 		};
@@ -1090,11 +1088,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-PDDemo/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-PDDemo/Pods-PDDemo.modulemap";
 				OTHER_LDFLAGS = "";
@@ -1128,11 +1122,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-PDDemo/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-PDDemo/Pods-PDDemo.modulemap";
 				OTHER_LDFLAGS = "";
@@ -1166,11 +1156,7 @@
 				INFOPLIST_FILE = "Target Support Files/markymark/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/markymark/markymark.modulemap";
 				PRODUCT_MODULE_NAME = markymark;
 				PRODUCT_NAME = markymark;
@@ -1267,11 +1253,7 @@
 				INFOPLIST_FILE = "Target Support Files/Contentful/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/Contentful/Contentful.modulemap";
 				PRODUCT_MODULE_NAME = Contentful;
 				PRODUCT_NAME = Contentful;
@@ -1302,11 +1284,7 @@
 				INFOPLIST_FILE = "Target Support Files/markymark/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/markymark/markymark.modulemap";
 				PRODUCT_MODULE_NAME = markymark;
 				PRODUCT_NAME = markymark;
@@ -1338,11 +1316,7 @@
 				INFOPLIST_FILE = "Target Support Files/Contentful/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/Contentful/Contentful.modulemap";
 				PRODUCT_MODULE_NAME = Contentful;
 				PRODUCT_NAME = Contentful;
@@ -1412,8 +1386,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};

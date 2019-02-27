@@ -17,9 +17,8 @@ import Contentful
     case colour5 = 0xFFFFFF //White
  }
  
- 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+ class AppDelegate: UIResponder, UIApplicationDelegate, ContentfulDataObserver {
 
     var window: UIWindow?
     var cdm = ContentfulDataManager.shared
@@ -30,33 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Initialise the GUI before trying to download the contentful data
         initGUI()
         
-        ContentfulDataManager.shared.fetchSyncSpace() { (success) in
-        
-            DispatchQueue.main.async {
-                
-                //Check for success and if so update the GUI
-                if (success) {
-                    self.updateGUI()
-                } else {
-                    let alert = UIAlertController(title: "Error downloading data, message:", message: "Please check your internet connection and restart app.", preferredStyle: .alert)
-                }
-            }
-            
-        }
-        
-//        //Download headers
-//        ContentfulDataManager.shared.fetchHeaders() { (success) in
-//            
-//            DispatchQueue.main.async {
-//                
-//                //Check for success and if so update the GUI
-//                if (success) {
-//                    self.updateGUI()
-//                } else {
-//                    let alert = UIAlertController(title: "Error downloading data, message:", message: "Please check your internet connection and restart app.", preferredStyle: .alert)
-//                }
-//            }
-//        }
+        //Add self as observer and kick off data model population
+        ContentfulDataManager.shared.observers += [self]
+        ContentfulDataManager.shared.fetchHeaders()
+    
         return true
     }
     
@@ -68,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = UIColor(hex: Palette.colour3.rawValue) //0xA62639,0xA29C9B,0x2E3944,0xD1D1D1,0x4E6E5D
         let homeNav = UINavigationController()
         homeVC = HomeViewController.instantiate()
-
+        
         let navigator = Navigator()
         homeVC!.navigatorDelegate = navigator
         
@@ -85,16 +61,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    //Delegate method to be called when call to get headers returns
+    func headersLoaded(result: (Result<[Header]>)) {
+        
+        DispatchQueue.main.async {
+            
+            //Check for success and if so update the GUI
+            switch result {
+            case .success:
+                //Headers downloaded so update GUI
+                self.updateGUI()
+                
+            case .error:
+                let alert = UIAlertController(title: "Error downloading data, message:", message: "Please check your internet connection and restart app.", preferredStyle: .alert)
+            }
+        }
+    }
+    
+   
     //Update the GUI with a ViewController per "Header" downloaded  
     private func updateGUI() {
     
+        //Filter only those headers to show on Home
+        let homeHeaders = ContentfulDataManager.shared.headers.sorted(by: {$0.ordinal < $1.ordinal}).filter({$0.showOnHome})
+        homeVC?.update(with: homeHeaders)
+        
         //Get headers, sorted by ordinal and filtered to only include those that need to be shown on tab bar
-        let headers = ContentfulDataManager.shared.headers.sorted(by: {$0.ordinal < $1.ordinal}).filter({$0.showOnTab})
+        let tabHeaders = ContentfulDataManager.shared.headers.sorted(by: {$0.ordinal < $1.ordinal}).filter({$0.showOnTab})
         let navigator = Navigator()
         
         //Get all headers that are to be shown as tabs (i.e. where showOnTab is true)
         //and set up a NavigationView with embedded HeaderViewController
-        let navControllers : [UINavigationController] = headers.enumerated().map { (index, header) in
+        let navControllers : [UINavigationController] = tabHeaders.enumerated().map { (index, header) in
             
             //Set up navigation controller
             let nav = UINavigationController()
@@ -140,10 +138,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-    func setupUI () {
-        
     }
     
 }

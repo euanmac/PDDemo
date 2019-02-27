@@ -36,38 +36,37 @@ class HomeViewController: UITableViewController, Storyboarded {
     var sections: [(header:Header, isCollapsed: Bool)] = [(header:Header, isCollapsed: Bool)]()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.title = "Pocket Doctor"
         
-        //Get the data - use call back to populate data structures and reload tableview
-        ContentfulDataManager.shared.fetchSyncSpace { (success) in
-            
-            if success {
-                print("\(ContentfulDataManager.shared.headers.count)")
-                
-                //Initialise local array to store header content, sort by ordinal
-                self.headers = ContentfulDataManager.shared.headers
-                self.headers.sort() {$0.ordinal < $1.ordinal}
-                self.sections = self.headers.map() {($0, true)}
-            
-                //Loop through headers and articles and flatten into the TableViewDataRow structure
-                //Assumes empty initiated array
-                for (index, header) in self.headers.enumerated() {
-                    self.dataRows.append(TableViewDataRow(headerIndex: index, isVisible: true, isHeader: true))
-                    for (aindex, _) in header.articles.enumerated() {
-                        self.dataRows.append(TableViewDataRow(headerIndex: index, articleIndex: aindex, isVisible: false, isHeader: false))
-                    }
-                }
-                
-                //reload the table view on main thread
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-
-        }
     }
 
+    //To be called to refresh ViewController
+    func update(with newHeaders: [Header]) {
+        
+        headers = newHeaders
+        
+        //Initialise local array to store header content, sort by ordinal
+        headers.sort() {$0.ordinal < $1.ordinal}
+        sections = self.headers.map() {($0, true)}
+        
+        //Loop through headers and articles and flatten into the TableViewDataRow structure
+        //Assumes empty initiated array
+        for (index, header) in self.headers.enumerated() {
+            self.dataRows.append(TableViewDataRow(headerIndex: index, isVisible: true, isHeader: true))
+            for (aindex, _) in header.articles.enumerated() {
+                self.dataRows.append(TableViewDataRow(headerIndex: index, articleIndex: aindex, isVisible: false, isHeader: false))
+            }
+        }
+        
+        //reload the table view on main thread
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -8,26 +8,17 @@
 import Foundation
 import Contentful
 
-final class ArticleListSection: EntryDecodable, FieldKeysQueryable, Equatable, Hashable, Encodable {
+final class ArticleListSection: Codable, EntryMappable, Equatable, Hashable {
     
-    static let contentTypeId: String = "articleListSection"
-    
-    var id: String
-    var updatedAt: Date?
-    var createdAt: Date?
-    var localeCode: String?
     let articleListSectionTitle: String?
     let showAsSection: Bool?
     
     public required init(from decoder: Decoder) throws {
         
-        let sys = try decoder.sys()
-        id = sys.id
-        updatedAt = sys.updatedAt
-        createdAt = sys.createdAt
-        showAsSection = true
+
         let fields      = try decoder.contentfulFieldsContainer(keyedBy: ArticleListSection.FieldKeys.self)
         self.articleListSectionTitle       = try fields.decodeIfPresent(String.self, forKey: .articleListSectionTitle)
+        showAsSection = true
     }
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
@@ -38,10 +29,6 @@ final class ArticleListSection: EntryDecodable, FieldKeysQueryable, Equatable, H
     //Initialise from an Entry
     public required init(from entry: Entry) {
         
-        let sys = entry.sys
-        id = sys.id
-        updatedAt = sys.updatedAt
-        createdAt = sys.createdAt
         showAsSection = true
         self.articleListSectionTitle = entry[FieldKeys.articleListSectionTitle]
         
