@@ -30,6 +30,7 @@ struct TableViewDataRow : Equatable {
 
 class HomeViewController: UITableViewController, Storyboarded {
     
+    var refreshDelegate: RefreshDelegate?
     var navigatorDelegate: NavigationDelegate?
     var dataRows: [TableViewDataRow] = [TableViewDataRow]()
     var headers: [Header] = [Header]()
@@ -39,9 +40,17 @@ class HomeViewController: UITableViewController, Storyboarded {
         
         super.viewDidLoad()
         self.title = "Pocket Doctor"
-        
+        refreshControl = UIRefreshControl()
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl!.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
 
+    @objc func refresh(_ sender: Any) {
+        //Call refresh delegate if se
+        refreshDelegate?.doRefresh()
+        refreshControl!.endRefreshing()
+    }
+    
     //To be called to refresh ViewController
     func update(with newHeaders: [Header]) {
         

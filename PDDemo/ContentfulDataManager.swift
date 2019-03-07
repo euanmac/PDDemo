@@ -47,17 +47,18 @@ final class ContentfulDataManager {
     //Will attempt to load from cached json file if available and not changed
     //If not will attempt to download from the contentful website
     //Once loaded will let any registered listeners know outcome of load
-    public func fetchHeaders() {
+    public func fetchHeaders(useCache: Bool = true) {
         
         //Try loading from cache, if successful call listeners
         //Errors here are suppressed as not fatal
         //TODO: Add logging
-//        if let cacheHeaders = fetchHeadersFromFileCache() {
-//            headers = cacheHeaders
-//            headersCached = true
-//            observers.forEach() {$0.headersLoaded(result: Result.success(cacheHeaders))}
-//            return
-//        }
+        if useCache, let cacheHeaders = fetchHeadersFromFileCache() {
+            headers = cacheHeaders
+            headersCached = true
+            observers.forEach() {$0.headersLoaded(result: Result.success(cacheHeaders))}
+            print("Successfully loaded \(cacheHeaders.count) headers from cache")
+            return
+        }
         
         //No file cached headers so will get contentful space and initialise model from there
         fetchHeadersFromSyncSpace() {(result: Result<[Header]>) in
@@ -69,7 +70,8 @@ final class ContentfulDataManager {
                 self.observers.forEach() {$0.headersLoaded(result: Result.success(syncHeaders))}
                 
             case .error(let err):
-                print("Could not load data - todo show error to user")
+                //TODO: Log this properly
+                print(err.localizedDescription)
             }
         }
         return
@@ -94,7 +96,7 @@ final class ContentfulDataManager {
         }
     }
         
-    //Initialies the object model from contentful space
+    //Initialies the object model from contentful space entries
     private func initHeaders(from space: SyncSpace) -> [Header] {
         
         return space.entries.filter({$0.sys.contentTypeId == "header"}).map() {entry in
@@ -102,16 +104,43 @@ final class ContentfulDataManager {
         }
     }
     
-    //Retrieve image for a given asset using the Contentful client.
-    //Will call a completion handler on succesful fetch of image and pass the UIImage to it.
-    public func fetchImage(for asset: Asset, _ completion: @escaping ((UIImage) -> Void)) {
-        let client: Client = Client(spaceId: SPACE_ID, accessToken: ACCESS_TOKEN)
-        client.fetchImage(for: asset) { (result: Result<UIImage>) in
+//    //Retrieve image for a given asset using the Contentful client.
+//    //Will call a completion handler on succesful fetch of image and pass the UIImage to it.
+//    public func fetchImage(for asset: Asset, _ completion: @escaping ((UIImage) -> Void)) {
+//        let client:Client = Client(spaceId: SPACE_ID, accessToken: ACCESS_TOKEN)
+//        client.fetchImage(for: asset) { (result: Result<UIImage>) in
+//            switch result {
+//            case .success(let image):
+//                completion(image)
+//            case .error(let error):
+//                print("Oh no something went wrong: \(error)")
+//            }
+//        }
+//    }
+
+    //Retrieve image for a given URL string using the Contentful client.
+    //Will call a completion handler on succesful fetch of image and pass the UIImage to it otherwise will pass nil
+    public func fetchImage(for imageUrl: String, _ completion: @escaping ((UIImage?) -> Void)) {
+        
+        //Check we have a valid URL, if not exit and call completion with nil
+        guard let url = URL(string: imageUrl) else {
+            completion(nil)
+            //Todo : Log this
+            print("Invalid URL string")
+            return
+        }
+        
+        //Otherwise use client to get image
+        let client:Client = Client(spaceId: SPACE_ID, accessToken: ACCESS_TOKEN)
+        let _ = client.fetch(url: url) { result in
+            
             switch result {
-            case .success(let image):
+            case .success(let imageData):
+                let image = UIImage(data: imageData)
                 completion(image)
             case .error(let error):
-                print("Oh no something went wrong: \(error)")
+                
+                print(error.localizedDescription)
             }
         }
     }
@@ -130,7 +159,7 @@ final class ContentfulDataManager {
         do {
             try data.write(to: cacheFile)
         } catch {
-            fatalError("Couldnt write to file " + cacheFile.absoluteString)
+            fatalError("Couldnt write to cache " + cacheFile.absoluteString)
         }
         
         return
@@ -192,6 +221,7 @@ extension Entry {
     
     //Maps an entry to one of a defined set of types
     //Returns nil if type on Entry is not known - makes
+    //T should be an enum that describes set of concrete classes that could be mapped to
     func mapTo <T: ContentTypes>(types: T.Type) -> EntryMappable?  {
         
         if let contentType = types.init(rawValue: self.sys.contentTypeId!) {
@@ -203,154 +233,50 @@ extension Entry {
             return nil
         }
     }
-    
-    //Maps a list of linked sub entries
-//    internal func mapTo <T> (types: [T.Type]) -> T? where T : EntryMappable & ContentType
-//    {
-//        //Ensure we are passed a type that maps to the entry type
-//             
-//        
-//        //Init the type found using the entry and cast to T
-//        //return mapType.init(from: self)
-//        
-//    }
-    
 }
 
-
-// This is a magic workaround for the fact that dynamic metatypes cannot be passed into
-// initializers such as UnkeyedDecodingContainer.decode(Decodable.Type), yet static methods CAN
-// be called on metatypes.
-//internal extension Decodable where Self: ArticleDecodable {
-//    // This is a magic workaround for the fact that dynamic metatypes cannot be passed into
-//    // initializers such as UnkeyedDecodingContainer.decode(Decodable.Type), yet static methods CAN
-//    // be called on metatypes.
-//    static func popEntryDecodable(from container: inout UnkeyedDecodingContainer) throws -> Self {
-//        let entryDecodable = try container.decode(self)
-//        return entryDecodable
-//    }
-//}
+// Extension to decodable to allow decoded initialisation of object from it's type
+internal extension Decodable where Self: Decodable {
+    // This is a magic workaround for the fact that dynamic metatypes cannot be passed into
+    // initializers such as UnkeyedDecodingContainer.decode(Decodable.Type), yet static methods CAN
+    // be called on metatypes.
+    static func popEntryDecodable(from container: inout UnkeyedDecodingContainer) throws -> Self {
+        let entryDecodable = try container.decode(self)
+        return entryDecodable
+    }
+}
 
 //Extension to decode an array of types
 internal extension KeyedDecodingContainer {
     
-    /// Decode a heterogeneous list of objects given an array of decodable types
-    /// - Parameters:
-    ///     - heterogeneousType: The decodable type of the list.
-    ///     - family: The ClassFamily enum for the type family.
-    ///     - key: The CodingKey to look up the list in the current container.
-    /// - Returns: The resulting list of heterogeneousType elements.
-//    func decode(forTypes types: [ArticleDecodable.Type], forKey
-//        key: K) throws -> [ArticleDecodable] {
-//        
-//        var container = try self.nestedUnkeyedContainer(forKey: key)
-//        var list = [ArticleDecodable]()
-//        var tmpContainer = container
-//        var types2 : [EntryMappable] = [ArticleList.self, ArticleSingle.self, ArticleImage.self]
-//        
-//        while !container.isAtEnd {
-//            let typeContainer = try container.nestedContainer(keyedBy: CodingTypes.self)
-//            let jSONtype = try typeContainer.decode(String.self, forKey: CodingTypes.contentTypeId)
-//            
-//            for contreteType in types2 {
-//                if contreteType.contentTypeId == jSONtype {
-//                    list.append(try contreteType.popEntryDecodable(from: &tmpContainer))
-//                }
-//            }
-//        
-//        }
-//        return list
-//    }
-}
+        //Specfic extennsion to decoder to allow decoding of heterogenous array
+        //i.e. decode different concrete article types but coalesce into single array of [Article]
+        //protocol instances. Requires set of possible types to be defined in ContentTypes enum
+        func decode<T: ContentTypes> (types: T.Type, forKey
+            key: K) throws -> [Decodable] {
+    
+            var container = try self.nestedUnkeyedContainer(forKey: key)
+            var list = [Decodable]()
+            var tmpContainer = container
 
+            while !container.isAtEnd {
+                let typeContainer = try container.nestedContainer(keyedBy: CodingTypes.self)
+                let jSONtype = try typeContainer.decode(String.self, forKey: CodingTypes.contentTypeId)
+            
+                if let decodableType = types.init(rawValue: jSONtype)?.getType() as? Decodable.Type {
+                    
+                    list.append(try decodableType.popEntryDecodable(from: &tmpContainer))
+                } else {
+                    //TODO: Log
+                    print("Type of entry not known, skipping")
+                }
+    
+            }
+            return list
+        }
+}
 
 //Struct to hold sync token
-struct SyncToken {
-    let token: String
-}
-
-
-
-//    func fetchHeaders(completion: @escaping ((Bool) -> Void)) {
-//
-//        //Check if headers are cached in memory, if so then call handler and return
-//        if (headersCached) {
-//            completion(true)
-//            return
-//        }
-//
-//        //Load sync token from file
-//        //self.headers = readHeadersFromCache()
-//
-////        let contentTypeClasses: [EntryDecodable.Type]? = [
-////            Header.self,
-////            ArticleSingle.self,
-////            ArticleList.self,
-////            ArticleListSection.self,
-////            ArticleImage.self
-////        ]
-//
-//        let client: Client = Client(spaceId: SPACE_ID, accessToken: ACCESS_TOKEN, contentTypeClasses: contentTypeClasses)
-//
-//        //Fetch array of Plan objects and decode, if successful then store in class variable and call completion handler
-//        client.fetchArray(of: Header.self, matching: QueryOn<Header>().include(3)) { (result: Result<ArrayResponse<Header>>) in
-//
-//            switch result {
-//
-//            case .success(let headerResponse):
-//                self.headers = headerResponse.items
-//                self.headersCached = true
-//                self.writeHeadersToCache()
-//                completion(true)
-//
-//            case .error(let error):
-//                print("Oh no something went wrong: \(error)")
-//                completion(false)
-//            }
-//        }
-//    }
-
-
-/*
-if let filepath = Bundle.main.path(forResource: "InitPuzzle4x4", ofType: "json") {
-    do {
-        let jsonURL = URL(fileURLWithPath: filepath)
-        let jsonData = try Data(contentsOf: jsonURL)
-        blockPuzzle  = try JSONDecoder().decode(BlockPuzzle.self, from: jsonData)
-        
-    } catch {
-        // contents could not be loaded
-        print (error)
-    }
-} else {
-    // example.txt not found!
-}
-
-return
-}
-private func savePuzzle() throws -> Void {
-    let documentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    let archiveURL = documentsDirectory.appendingPathComponent("PuzzleBlock")
-    
-    if let jsonData = try? JSONEncoder().encode(blockPuzzle) {
-        let jsonString = String(data: jsonData, encoding: .utf8)
-        try jsonData.write(to: archiveURL)
-    }
-    return
-}
-*/
-
-////Extend Sys class so it can be written and cached
-//extension Sys : Encodable  {
-//    public func encode(to encoder: Encoder) throws {
-//
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(id, forKey: .id)
-//        try container.encode(type, forKey: .type)
-//        try container.encodeIfPresent(createdAt, forKey: .createdAt)
-//        try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
-//        try container.encodeIfPresent(locale, forKey: .locale)
-//        try container.encodeIfPresent(revision, forKey: .revision)
-//        try container.encodeIfPresent(contentTypeId, forKey: .contentType)
-//    }
+//struct SyncToken {
+//    let token: String
 //}

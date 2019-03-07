@@ -58,20 +58,18 @@ class ArticleBase: Article, Codable, EntryMappable {
     let contentTypeId: String?
     var listSection: ArticleListSection?
     
-    /**Initialies from decoder*/
+    /**Initialise from decoder*/
     public required init(from decoder: Decoder) throws {
 
-        let fields  = try decoder.contentfulFieldsContainer(keyedBy: ArticleBase.FieldKeys.self)
-        self.articleTitle   = try fields.decodeIfPresent(String.self, forKey: .articleTitle)
-        self.subtitle = try fields.decodeIfPresent(String.self, forKey: .subtitle)
-        self.isCheckList = try fields.decodeIfPresent(Bool.self, forKey: .isCheckList) ?? false
-        self.contentTypeId = try fields.decodeIfPresent(String.self, forKey: .contentTypeId)
-        try fields.resolveLink(forKey: .listSection, decoder: decoder) { [weak self] linkedSection in
-            self?.listSection = linkedSection as? ArticleListSection
-        }
+        let container  = try decoder.container(keyedBy: FieldKeys.self)
+        self.articleTitle   = try container.decodeIfPresent(String.self, forKey: .articleTitle)
+        self.subtitle = try container.decodeIfPresent(String.self, forKey: .subtitle)
+        self.isCheckList = try container.decodeIfPresent(Bool.self, forKey: .isCheckList) ?? false
+        self.contentTypeId = try container.decodeIfPresent(String.self, forKey: .contentTypeId)
+        self.listSection = try container.decodeIfPresent(ArticleListSection.self, forKey: .listSection)
     }
     
-    /**Initialise from an Entry object*/
+    /**Initialise from a Contentful Entry object*/
     public required init(from entry: Entry) {
         
         self.articleTitle = entry[FieldKeys.articleTitle]
@@ -91,6 +89,7 @@ class ArticleBase: Article, Codable, EntryMappable {
         try container.encode(subtitle, forKey: .subtitle)
         try container.encode(isCheckList, forKey: .isCheckList)
         try container.encode(listSection, forKey: .listSection)
+        try container.encode(contentTypeId, forKey: .contentTypeId)
     }
     
     //Override this in subclasses

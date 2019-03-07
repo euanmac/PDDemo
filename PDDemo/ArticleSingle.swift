@@ -15,12 +15,13 @@ final class ArticleSingle: ArticleBase {
     
     var articleContent: String?
     
+    //Initialise from JSON
     public required init(from decoder: Decoder) throws {
         
         //Init base properties
         try super.init(from: decoder)
-        let fields  = try decoder.contentfulFieldsContainer(keyedBy: ArticleSingle.FieldKeys.self)
-        self.articleContent = try fields.decodeIfPresent(String.self, forKey: .articleContent)
+        let container  = try decoder.container(keyedBy: FieldKeys.self)
+        self.articleContent = try container.decodeIfPresent(String.self, forKey: .articleContent)
     }
     
     /** Initialise from an Entry object*/
@@ -36,8 +37,6 @@ final class ArticleSingle: ArticleBase {
         var container = encoder.container(keyedBy: FieldKeys.self)
         try super.encode(to: encoder)
         try container.encode(articleContent, forKey: .articleContent)
-        try container.encode(contentTypeId, forKey: .contentTypeId)
-        
     }
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
@@ -57,6 +56,7 @@ final class ArticleSingle: ArticleBase {
         let converter = MarkDownConverter(configuration: config)
         let attributedText = converter.convert(markdownItems)
         return attributedText
+        
     }
     
     //Overriden - true if content is not null

@@ -10,18 +10,8 @@ import Contentful
 
 final class ArticleList: ArticleBase {
    
-    
-    var articles: [Article] = [Article]()
-    
-    
-    //Computed property to return unique list of ArticleListSections
-    var sections: [ArticleListSection] {
-        //Filter out nil values and map to array of Sections
-        let listSections = articles.filter({$0.listSection != nil}).map({$0.listSection!})
-        //Strip out duplicates
-        return listSections.reduce([
-            ArticleListSection](), {$0.contains($1) ? $0 : $0 + [$1]})
-    }
+    var articles = [Article]()
+    var sections = [ArticleListSection]()
     
     //Return array of articles with given list section
     func getArticles(by listSection: ArticleListSection) -> [Article] {
@@ -31,20 +21,28 @@ final class ArticleList: ArticleBase {
     /**Initialise from decoder*/
     public required init(from decoder: Decoder) throws {
         
+        let container = try decoder.container(keyedBy: FieldKeys.self)
+        self.articles = try container.decode(types: ArticleTypes.self, forKey: .articles) as! [Article]
+        //Get unique non-nil list of sections from articles by using compactmap to remove nils
+        //and then reduce to get distinct list
+        sections = articles.compactMap {$0.listSection}.reduce([
+            ArticleListSection](), {$0.contains($1) ? $0 : $0 + [$1]})
         try super.init(from: decoder)
-        let fields      = try decoder.contentfulFieldsContainer(keyedBy: ArticleList.FieldKeys.self)
-        try fields.resolveLinksArray(forKey: .articles, decoder: decoder) { [weak self] itemsArray in self?.articles = itemsArray as? [Article] ?? [Article]()
-        }
-       
+        
     }
     
-    // Initialise from an Entry object
+    // Initialise from a Contentful Entry object
     public required init(from entry: Entry) {
+        
         //Init base class
         super.init(from: entry)
         if let entries = entry.fields.linkedEntries(at: FieldKeys.articles.stringValue) {
             self.articles =  entries.compactMap({$0.mapTo(types: ArticleTypes.self)}) as! [Article]
         }
+        //Get unique non-nil list of sections from articles by using compactmap to remove nils
+        //and then reduce to get distinct list
+        sections = articles.compactMap {$0.listSection}.reduce([
+            ArticleListSection](), {$0.contains($1) ? $0 : $0 + [$1]})
     }
     
     //Encode properties to JSON

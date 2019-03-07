@@ -27,48 +27,25 @@ final class Header : EntryMappable, Codable  {
     public required init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: FieldKeys.self)
-        //self.sys = try container.decode(Sys.self, forKey: .sys)
         self.headerTitle =  try container.decode(String.self, forKey: .headerTitle)
         self.showOnTab = try container.decode(Bool.self, forKey: .showOnTab)
         self.showOnHome   = try container.decode(Bool.self, forKey: .showOnHome)
         self.ordinal    = try container.decode(Int.self, forKey: .ordinal)
-        //self.articles = try container.decode(forTypes: [ArticleList.self, ArticleSingle.self, ArticleImage.self], forKey: .articles)
-        
-//        sys = try decoder.sys()
-//        id = sys.id
-//        updatedAt = sys.updatedAt
-//        createdAt = sys.createdAt
-//
-//        let fields      = try decoder.contentfulFieldsContainer(keyedBy: Header.FieldKeys.self)
-//        self.headerTitle       = try fields.decodeIfPresent(String.self, forKey: .headerTitle)
-//
-//        if let showOnTab = try fields.decodeIfPresent(Bool.self, forKey: .showOnTab) {
-//            self.showOnTab = showOnTab
-//        }
-//
-//        if let showOnHome    = try fields.decodeIfPresent(Bool.self, forKey: .showOnHome) {
-//            self.showOnHome = showOnHome
-//        }
-//
-//        if let ordinal    = try fields.decodeIfPresent(Int.self, forKey: .ordinal) {
-//            self.ordinal = ordinal
-//        }
-//
-//        try fields.resolveLinksArray(forKey: .articles, decoder: decoder) { [weak self] itemsArray in self?.articles = itemsArray as? [ArticleBase] ?? [ArticleBase]()}
+        print(self.headerTitle)
+        self.articles = try container.decode(types: ArticleTypes.self, forKey: .articles) as! [Article]
         
     }
     
-    //Initialise the header from a Contentful entruy object
+    //Initialise the header from a Contentful entry object
     public required init(from entry: Entry) {
         
         self.headerTitle =  entry[FieldKeys.headerTitle]
         self.showOnTab = entry[FieldKeys.showOnTab] ?? false
         self.showOnHome   = entry[FieldKeys.showOnHome] ?? false
         self.ordinal    = entry[FieldKeys.ordinal] ?? 0
-
         if let entries = entry.fields.linkedEntries(at: FieldKeys.articles.stringValue) {
-        self.articles =  entries.compactMap({$0.mapTo(types: ArticleTypes.self)}) as? [Article]}
-        print(articles.count)
+        self.articles =  entries.compactMap({$0.mapTo(types: ArticleTypes.self)}) as! [Article]}
+        print(self.headerTitle)
     }
     
     //Encode method, cannot be synthesised as we're inheriting the encodable protocol from article protocol

@@ -31,6 +31,8 @@
 		BE532FB921A371960060E19C /* ArticleListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE532FB821A371960060E19C /* ArticleListSection.swift */; };
 		BE532FBD21A3E9510060E19C /* StoryBoarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE532FBA21A3E9500060E19C /* StoryBoarded.swift */; };
 		BE532FBE21A3E9510060E19C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE532FBB21A3E9500060E19C /* Navigator.swift */; };
+		BEE77B1F22307F48003F5FC3 /* MarkDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE77B1E22307F48003F5FC3 /* MarkDown.swift */; };
+		BEF85EA2222D098800177686 /* ContentfulCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF85EA1222D098800177686 /* ContentfulCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		BE532FB821A371960060E19C /* ArticleListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListSection.swift; sourceTree = "<group>"; };
 		BE532FBA21A3E9500060E19C /* StoryBoarded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoarded.swift; sourceTree = "<group>"; };
 		BE532FBB21A3E9500060E19C /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		BEE77B1E22307F48003F5FC3 /* MarkDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkDown.swift; sourceTree = "<group>"; };
+		BEF85EA1222D098800177686 /* ContentfulCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentfulCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,11 +123,13 @@
 				BE16C09B21BDD0A2009F68EF /* ArticleCheckListCell.swift */,
 				0007872C21E168E400A21FE5 /* ArticleImageCell.swift */,
 				BE1CC756219B4EA5009D524A /* CollapsibleTableViewHeader.swift */,
+				BEF85EA1222D098800177686 /* ContentfulCache.swift */,
 				BE3333BF2194BB420081FBBC /* ContentfulDataManager.swift */,
 				BE3333C12195725E0081FBBC /* Header.swift */,
 				BE22628721A5DC230007B3EE /* HeaderViewController.swift */,
 				0048475421985FF800C6F55C /* HomeViewController.swift */,
 				BE33339D2192461D0081FBBC /* Main.storyboard */,
+				BEE77B1E22307F48003F5FC3 /* MarkDown.swift */,
 				BE16C09D21BF1610009F68EF /* CheckListButton.swift */,
 				BE532FBB21A3E9500060E19C /* Navigator.swift */,
 				BE532FBA21A3E9500060E19C /* StoryBoarded.swift */,
@@ -267,6 +273,7 @@
 			files = (
 				BE3333C52195FFC10081FBBC /* ArticleSingle.swift in Sources */,
 				BE16C0A021C3999E009F68EF /* ArticleBase.swift in Sources */,
+				BEE77B1F22307F48003F5FC3 /* MarkDown.swift in Sources */,
 				BE33339C2192461D0081FBBC /* ArticleViewController.swift in Sources */,
 				BE3333C62195FFC10081FBBC /* ArticleList.swift in Sources */,
 				BE3333C2219572610081FBBC /* Header.swift in Sources */,
@@ -283,6 +290,7 @@
 				BE2157F421B48B7B00209109 /* ArticleImage.swift in Sources */,
 				BE3333982192461D0081FBBC /* AppDelegate.swift in Sources */,
 				BE532FBD21A3E9510060E19C /* StoryBoarded.swift in Sources */,
+				BEF85EA2222D098800177686 /* ContentfulCache.swift in Sources */,
 				BE16C09C21BDD0A3009F68EF /* ArticleCheckListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

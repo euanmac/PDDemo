@@ -20,9 +20,16 @@ class HeaderViewController: UITableViewController, Storyboarded {
             return
         }
         self.title = header.headerTitle
+        // Refresh control add in tableview.
+        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        
         self.tableView.reloadData()
     }
 
+    @objc func refresh(_ sender: Any) {
+        // Call webservice here after reload tableview.
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

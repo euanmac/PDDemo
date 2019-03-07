@@ -17,12 +17,18 @@ import Contentful
     case colour5 = 0xFFFFFF //White
  }
  
+ //Delegate used by ViewControllers to find determine which view to push to
+ protocol RefreshDelegate {
+    func doRefresh() -> Void
+ }
+ 
 @UIApplicationMain
- class AppDelegate: UIResponder, UIApplicationDelegate, ContentfulDataObserver {
-
+ class AppDelegate: UIResponder, UIApplicationDelegate, ContentfulDataObserver, RefreshDelegate {
+    
     var window: UIWindow?
     var cdm = ContentfulDataManager.shared
     var homeVC: HomeViewController?
+    var homeNav: UINavigationController!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -42,11 +48,13 @@ import Contentful
         
         //Create Home Nav and controller and give it a navigator object as delegate
         UITabBar.appearance().tintColor = UIColor(hex: Palette.colour3.rawValue) //0xA62639,0xA29C9B,0x2E3944,0xD1D1D1,0x4E6E5D
-        let homeNav = UINavigationController()
+        homeNav = UINavigationController()
         homeVC = HomeViewController.instantiate()
-        
+
+        //Set navigate and refresh delegates
         let navigator = Navigator()
         homeVC!.navigatorDelegate = navigator
+        homeVC!.refreshDelegate = self
         
         //Show home table view
         homeNav.pushViewController(homeVC!, animated: false)
@@ -60,6 +68,16 @@ import Contentful
         homeNav.navigationItem.title = "Pocket Doctor"
         
     }
+    
+    //Clear GUI for refreshing data
+    public func refreshGUI() {
+        //Get the tabBar controller so that we can initialise UI
+        if let tabBarController = window!.rootViewController as? UITabBarController {
+            tabBarController.viewControllers = [homeNav]
+        }
+        ContentfulDataManager.shared.fetchHeaders(useCache: false)
+    }
+        
     
     //Delegate method to be called when call to get headers returns
     func headersLoaded(result: (Result<[Header]>)) {
@@ -117,6 +135,10 @@ import Contentful
         
     }
     
+    //Refresh delegate method to refresh GUI
+    func doRefresh() {
+        refreshGUI()
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

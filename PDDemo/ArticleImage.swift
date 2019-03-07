@@ -9,32 +9,46 @@
 import Foundation
 import Contentful
 import markymark
+import UIKit
 
 final class ArticleImage: ArticleBase {
     
-    static let contentTypeId: String = "articleImage"
-    
-    var articleImage: Asset?
+    var articleImageURL: String?
+    var imageURL: URL?
     var articleContent: String?
+    var articleImage: UIImage?
 
-    public required init(from decoder: Decoder) throws {
+    internal required init(from decoder: Decoder) throws {
         
+        //Init base properties
         try super.init(from: decoder)
-        let fields  = try decoder.contentfulFieldsContainer(keyedBy: ArticleImage.FieldKeys.self)
-
-        self.articleContent = try fields.decodeIfPresent(String.self, forKey: .articleContent)
-        try fields.resolveLink(forKey: .articleImage, decoder: decoder) { [weak self] image in
-            self?.articleImage = image as? Asset
-        }
+        let container  = try decoder.container(keyedBy: FieldKeys.self)
+        self.articleContent = try container.decodeIfPresent(String.self, forKey: .articleContent)
+        self.articleImageURL = try container.decodeIfPresent(String.self, forKey: .articleImageURL)
     }
     
     /** Initialise from an Entry object*/
-    public required init(from entry: Entry) {
+    internal required init(from entry: Entry) {
         //Init base class
         super.init(from: entry)
         self.articleContent = entry[FieldKeys.articleContent]
-        self.articleImage = entry[FieldKeys.articleImage]
-    
+        let imageAsset: Asset? = entry[FieldKeys.articleImage]
+        articleImageURL = imageAsset?.urlString
+        self.imageURL = imageAsset?.url
+        
+    }
+
+    //Get image asynchronously
+    internal func getImage(then: @escaping ((UIImage?) -> Void)) {
+        if let articleImageURL = self.articleImageURL {
+            ContentfulDataManager.shared.fetchImage(for: articleImageURL) { image in
+                //Success so return image
+                then(image)
+            }
+        } else {
+            //No image to download so call completion with nothing
+            then(nil)
+        }
     }
     
     //Encode to JSON
@@ -43,15 +57,13 @@ final class ArticleImage: ArticleBase {
         var container = encoder.container(keyedBy: FieldKeys.self)
         try super.encode(to: encoder)
         try container.encode(articleContent, forKey: .articleContent)
-        try container.encode(ArticleImage.contentTypeId, forKey: .articleContent)
-        //try container.encode(articleImage, forKey: .articleImage)
-        //try container.encode(showOnHome, forKey: .showOnHome)
-        //try container.encode(articles, forKey: .articles)
+        try container.encode(articleImageURL, forKey: .articleImageURL)
+
     }
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
-        case articleContent, articleImage, contentTypeId
+        case articleContent, articleImage, articleImageURL
     }
     
     //Convert MarkDown to AttributedString

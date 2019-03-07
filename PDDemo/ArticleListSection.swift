@@ -8,18 +8,11 @@
 import Foundation
 import Contentful
 
+//ListSection Class, Codable will be synthesized by compiler, needs Equatable and Hashable for sorting, finding
 final class ArticleListSection: Codable, EntryMappable, Equatable, Hashable {
     
     let articleListSectionTitle: String?
     let showAsSection: Bool?
-    
-    public required init(from decoder: Decoder) throws {
-        
-
-        let fields      = try decoder.contentfulFieldsContainer(keyedBy: ArticleListSection.FieldKeys.self)
-        self.articleListSectionTitle       = try fields.decodeIfPresent(String.self, forKey: .articleListSectionTitle)
-        showAsSection = true
-    }
     
     // If your field names and your properties names differ, you can define the mapping in your `Fields` enum.
     enum FieldKeys: String, CodingKey {
@@ -33,7 +26,6 @@ final class ArticleListSection: Codable, EntryMappable, Equatable, Hashable {
         self.articleListSectionTitle = entry[FieldKeys.articleListSectionTitle]
         
     }
-    
     
     //Implement equatable 
     static func == (lhs: ArticleListSection, rhs: ArticleListSection) -> Bool {

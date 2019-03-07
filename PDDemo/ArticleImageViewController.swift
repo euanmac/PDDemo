@@ -32,7 +32,7 @@ class ArticleImageViewController: UIViewController, Storyboarded {
         content.attributedText = articleImage.getAttributedContent()
         
         //Get image and load asynchronously
-        ContentfulDataManager.shared.fetchImage(for: (articleImage.articleImage)!) { (image) in
+        articleImage.getImage() { (image) in
             DispatchQueue.main.async {
                 self.imageView.image = image
                 print ("Set image")
