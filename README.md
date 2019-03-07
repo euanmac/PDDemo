@@ -7,7 +7,7 @@ This iOS application displays data from a Contentful "space".
 The content model is meant to be generic enough that it can be reused across different subject domains. 
 The structure is relatively simple:
 
-**Header** is the top level object which has one or more **articles**. An **article** can be a single piece of content (specifically MarkDown) or instead a list of articles. This allows for a flexible, recursive structure. Each article in an article list can be grouped under a section for improved readibility.
+**Header** is the top level object which has one or more **articles**. An **article** can be a single piece of content (specifically MarkDown) or instead a list of articles. This allows for a flexible, recursive structure. Each article in an article list can be grouped under a section for improved readibility or display in a tableview.
 The application uses this structure to render the content. Headers will populate the "home" tab. They can also be flagged to show as tabs in their own right.
 
 Header
@@ -37,7 +37,7 @@ The dependencies were installed originally using CocoaPods and the Podfile and P
 
 
 #  Application Structure
-    
+
 HeaderViewController
 Takes a header and displays all articles listed - used as starting view controller for each tab (not home). No grouping.
 
