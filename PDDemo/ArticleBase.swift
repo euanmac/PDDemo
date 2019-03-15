@@ -5,10 +5,11 @@
 //  Created by Euan Macfarlane on 14/12/2018.
 //  Copyright © 2018 pddemo. All rights reserved.
 //
+//  Base article class, implements Article protocol.
+//  Should not be used in it's own right, should be inherited from
 
 import Foundation
 import Contentful
-
 
 //Types for decoding and deserialising
 protocol ContentTypes : Decodable {
@@ -41,6 +42,7 @@ enum ArticleTypes : String, ContentTypes {
 
 //Protocol defining article
 protocol Article: Codable {
+    var articleID: String {get}
     var contentTypeId: String? {get}
     var articleTitle: String? {get}
     var subtitle: String? {get}
@@ -52,6 +54,7 @@ protocol Article: Codable {
 //Base class for article - note that this class is not entry mappable though it probably should be 
 class ArticleBase: Article, Codable, EntryMappable {
     
+    let articleID: String
     let articleTitle: String?
     let subtitle: String?
     let isCheckList: Bool
@@ -62,6 +65,7 @@ class ArticleBase: Article, Codable, EntryMappable {
     public required init(from decoder: Decoder) throws {
 
         let container  = try decoder.container(keyedBy: FieldKeys.self)
+        self.articleID   = try container.decode(String.self, forKey: .articleId)
         self.articleTitle   = try container.decodeIfPresent(String.self, forKey: .articleTitle)
         self.subtitle = try container.decodeIfPresent(String.self, forKey: .subtitle)
         self.isCheckList = try container.decodeIfPresent(Bool.self, forKey: .isCheckList) ?? false
@@ -71,7 +75,7 @@ class ArticleBase: Article, Codable, EntryMappable {
     
     /**Initialise from a Contentful Entry object*/
     public required init(from entry: Entry) {
-        
+        self.articleID = entry.sys.id
         self.articleTitle = entry[FieldKeys.articleTitle]
         self.subtitle = entry[FieldKeys.subtitle]
         self.isCheckList = entry[FieldKeys.isCheckList] ?? false
@@ -85,6 +89,7 @@ class ArticleBase: Article, Codable, EntryMappable {
     func encode(to encoder: Encoder) throws {
  
         var container = encoder.container(keyedBy: FieldKeys.self)
+        try container.encode(articleID, forKey: .articleId)
         try container.encode(articleTitle, forKey: .articleTitle)
         try container.encode(subtitle, forKey: .subtitle)
         try container.encode(isCheckList, forKey: .isCheckList)
@@ -101,7 +106,7 @@ class ArticleBase: Article, Codable, EntryMappable {
     
     //Needs to be private so can be defined in subclasses
     private enum FieldKeys: String, CodingKey {
-        case articleTitle, subtitle, isCheckList, listSection, contentTypeId
+        case articleId, articleTitle, subtitle, isCheckList, listSection, contentTypeId
     }
 }
 

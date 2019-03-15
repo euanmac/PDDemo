@@ -24,25 +24,41 @@ protocol ContentfulDataObserver {
 
 final class ContentfulDataManager {
     
-    typealias AssetID = String
-    let SPACE_ID = "4hscjhj185vb"
-    let ACCESS_TOKEN = "b4ab36dc9ea14f8e8e4a3ece38115c907302591186e836d0cdfc659144b75e85"
-    let SYNC_TOKEN = "synctoken.json"
-    let HEADER_CACHE = "headercache.json"
+    public let SPACE_ID = "4hscjhj185vb"
+    public let ACCESS_TOKEN = "b4ab36dc9ea14f8e8e4a3ece38115c907302591186e836d0cdfc659144b75e85"
+    private let SYNC_TOKEN = "synctoken.json"
+    private let HEADER_CACHE = "headercache.json"
+    private let NOTES_FILE = "notes.json"
   
     //Array of listeners
     var observers = [ContentfulDataObserver]()
     //Image cache
-    var imageCache: [AssetID: UIImage] = [:]
+    //var imageCache: [AssetID: UIImage] = [:]
     //Headers
     var headers = [Header]()
-    
-    private(set) var headersCached = false
+    //Notes- provide access through property so Notes can be loaded only when needed
+    private var notes = ArticleNotes()
     
     //Hide initialiser to make singleton
     private init() {}
     static let shared = ContentfulDataManager()
    
+    //Property for notes - will load notes when first requested
+    public var articleNotes : ArticleNotes {
+        get {
+            if notes.state == .empty {
+                //Load notes
+                notes = fetchNotesFromFile() ?? ArticleNotes()
+            }
+            return notes
+        }
+        
+        set {
+            notes = newValue
+            notes.state = .changed
+        }
+    }
+    
     //Initialises the processes of populating the headers object model
     //Will attempt to load from cached json file if available and not changed
     //If not will attempt to download from the contentful website
@@ -54,7 +70,6 @@ final class ContentfulDataManager {
         //TODO: Add logging
         if useCache, let cacheHeaders = fetchHeadersFromFileCache() {
             headers = cacheHeaders
-            headersCached = true
             observers.forEach() {$0.headersLoaded(result: Result.success(cacheHeaders))}
             print("Successfully loaded \(cacheHeaders.count) headers from cache")
             return
@@ -66,7 +81,6 @@ final class ContentfulDataManager {
             case .success(let syncHeaders):
                 self.headers = syncHeaders
                 self.writeHeadersToFileCache()
-                self.headersCached = true
                 self.observers.forEach() {$0.headersLoaded(result: Result.success(syncHeaders))}
                 
             case .error(let err):
@@ -76,6 +90,34 @@ final class ContentfulDataManager {
         }
         return
     }
+    
+    //Retrieve image for a given URL string using the Contentful client.
+    //Will call a completion handler on succesful fetch of image and pass the UIImage to it otherwise will pass nil
+    public func fetchImage(for imageUrl: String, _ completion: @escaping ((UIImage?) -> Void)) {
+        
+        //Check we have a valid URL, if not exit and call completion with nil
+        guard let url = URL(string: imageUrl) else {
+            completion(nil)
+            //Todo : Log this
+            print("Invalid URL string")
+            return
+        }
+        
+        //Otherwise use client to get image
+        let client:Client = Client(spaceId: SPACE_ID, accessToken: ACCESS_TOKEN)
+        let _ = client.fetch(url: url) { result in
+            
+            switch result {
+            case .success(let imageData):
+                let image = UIImage(data: imageData)
+                completion(image)
+            case .error(let error):
+                
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
     //Download object model from Contentful Space
     private func fetchHeadersFromSyncSpace(then completion: @escaping ResultsHandler<[Header]>) {
@@ -101,47 +143,6 @@ final class ContentfulDataManager {
         
         return space.entries.filter({$0.sys.contentTypeId == "header"}).map() {entry in
             return Header(from: entry)
-        }
-    }
-    
-//    //Retrieve image for a given asset using the Contentful client.
-//    //Will call a completion handler on succesful fetch of image and pass the UIImage to it.
-//    public func fetchImage(for asset: Asset, _ completion: @escaping ((UIImage) -> Void)) {
-//        let client:Client = Client(spaceId: SPACE_ID, accessToken: ACCESS_TOKEN)
-//        client.fetchImage(for: asset) { (result: Result<UIImage>) in
-//            switch result {
-//            case .success(let image):
-//                completion(image)
-//            case .error(let error):
-//                print("Oh no something went wrong: \(error)")
-//            }
-//        }
-//    }
-
-    //Retrieve image for a given URL string using the Contentful client.
-    //Will call a completion handler on succesful fetch of image and pass the UIImage to it otherwise will pass nil
-    public func fetchImage(for imageUrl: String, _ completion: @escaping ((UIImage?) -> Void)) {
-        
-        //Check we have a valid URL, if not exit and call completion with nil
-        guard let url = URL(string: imageUrl) else {
-            completion(nil)
-            //Todo : Log this
-            print("Invalid URL string")
-            return
-        }
-        
-        //Otherwise use client to get image
-        let client:Client = Client(spaceId: SPACE_ID, accessToken: ACCESS_TOKEN)
-        let _ = client.fetch(url: url) { result in
-            
-            switch result {
-            case .success(let imageData):
-                let image = UIImage(data: imageData)
-                completion(image)
-            case .error(let error):
-                
-                print(error.localizedDescription)
-            }
         }
     }
     
@@ -183,6 +184,56 @@ final class ContentfulDataManager {
             print (error)
             return nil
         }
+    }
+    
+    //Load the article notes from json
+    //Errors here  can be suppressed for now as will fall back to using contenful data
+    private func fetchNotesFromFile() -> ArticleNotes? {
+        
+        let fileManager = FileManager()
+        let docsDir = fileManager.urls(for: .documentDirectory, in: .allDomainsMask).first!
+        let notesFile = docsDir.appendingPathComponent(NOTES_FILE)
+        print(notesFile.path)
+        
+        
+        //check file exists
+        guard fileManager.fileExists(atPath: notesFile.path) else {
+            return nil
+        }
+    
+        do {
+            let jsonData = try Data(contentsOf: notesFile)
+            var notes  = try JSONDecoder().decode(ArticleNotes.self, from: jsonData)
+            notes.state = .clean
+            return notes
+            
+        } catch {
+            // contents could not be loaded
+            print (error)
+            return nil
+        }
+    }
+    
+    
+    //Encode notes to JSON and write to file
+    //Errors here can be suppressed for now unless trying to write file which will throw fatal error
+    public func writeNotesToFile() {
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let data = try! encoder.encode(notes)
+        
+        let docsDir = FileManager().urls(for: .documentDirectory, in: .allDomainsMask).first!
+        let notesFile = docsDir.appendingPathComponent(NOTES_FILE)
+        print (notesFile.absoluteURL)
+        do {
+            try data.write(to: notesFile)
+            notes.state = .clean
+        } catch {
+            fatalError("Couldnt write notes to " + notesFile.absoluteString)
+        }
+        
+        return
     }
     
 }

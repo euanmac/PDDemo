@@ -26,7 +26,7 @@ import Contentful
  class AppDelegate: UIResponder, UIApplicationDelegate, ContentfulDataObserver, RefreshDelegate {
     
     var window: UIWindow?
-    var cdm = ContentfulDataManager.shared
+    var contentfulDataManager = ContentfulDataManager.shared
     var homeVC: HomeViewController?
     var homeNav: UINavigationController!
     
@@ -36,8 +36,8 @@ import Contentful
         initGUI()
         
         //Add self as observer and kick off data model population
-        ContentfulDataManager.shared.observers += [self]
-        ContentfulDataManager.shared.fetchHeaders()
+        contentfulDataManager.observers += [self]
+        contentfulDataManager.fetchHeaders()
     
         return true
     }
@@ -101,11 +101,11 @@ import Contentful
     private func updateGUI() {
     
         //Filter only those headers to show on Home
-        let homeHeaders = ContentfulDataManager.shared.headers.sorted(by: {$0.ordinal < $1.ordinal}).filter({$0.showOnHome})
+        let homeHeaders = contentfulDataManager.headers.sorted(by: {$0.ordinal < $1.ordinal}).filter({$0.showOnHome})
         homeVC?.update(with: homeHeaders)
         
         //Get headers, sorted by ordinal and filtered to only include those that need to be shown on tab bar
-        let tabHeaders = ContentfulDataManager.shared.headers.sorted(by: {$0.ordinal < $1.ordinal}).filter({$0.showOnTab})
+        let tabHeaders = contentfulDataManager.headers.sorted(by: {$0.ordinal < $1.ordinal}).filter({$0.showOnTab})
         let navigator = Navigator()
         
         //Get all headers that are to be shown as tabs (i.e. where showOnTab is true)
@@ -148,6 +148,9 @@ import Contentful
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        if contentfulDataManager.articleNotes.state == .changed {
+            contentfulDataManager.writeNotesToFile()
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

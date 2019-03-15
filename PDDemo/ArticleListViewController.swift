@@ -8,25 +8,70 @@
 
 import UIKit
 
-class ArticleListViewController: UITableViewController, Storyboarded {
+class ArticleListViewController: UITableViewController, UIPopoverPresentationControllerDelegate, Storyboarded {
    
     var articleList : ArticleList?
     var navigatorDelegate: NavigationDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //Check we have an articleList object
-        guard let _ = articleList else {
+        guard let articleList = articleList else {
             return
         }
-        self.title = articleList?.articleTitle
+        self.title = articleList.articleTitle
         self.navigationItem.largeTitleDisplayMode = .never
+        
+        //Add notes button if article list
+        if articleList.showNotes {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Notes", style: .plain, target: self, action: #selector(showNotes(sender:)))
+        }
         
         //Load the article data
         self.tableView.reloadData()
     }
 
+    //Notes Button - show notes view controller as a popover
+    @objc private func showNotes(sender: UIBarButtonItem) {
+        //Check we have a navigation delegate
+        if let articleList = articleList {
+            
+            //If so show the notes controller as a popover
+            let vc = ArticleNotesViewController.instantiate()
+            vc.articleNote = articleList.note
+            vc.modalPresentationStyle = UIModalPresentationStyle.popover
+            let popover: UIPopoverPresentationController = vc.popoverPresentationController!
+            popover.barButtonItem = sender
+            popover.delegate = self
+            present(vc, animated: true, completion:nil)
+        }
+    }
+    
+    //If dismissed by user clicking "away" from the popover, i.e. on the article list VC
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        
+        guard let articleList = articleList else {
+            return
+        }
+        let articleNotesVC = popoverPresentationController.presentedViewController as! ArticleNotesViewController
+        articleList.note = articleNotesVC.articleNote
+        
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        //Setting the modal presentation style to none ensures always shown as a popover even on iphone
+        return UIModalPresentationStyle.none
+    }
+    
+    //This wont be called as we are always showing as popver - kept just in case notes needs to become full screen again in which case there will need to be some buttons to allow user to dismiss the notes view
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navigationController = UINavigationController(rootViewController: controller.presentedViewController)
+        //let btnDone = UIBarButtonItem(title: "Done", style: .done, target: self, action: Selector(("dismiss")))
+        //navigationController.topViewController!.navigationItem.rightBarButtonItem = btnDone
+        return navigationController
+    }
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return articleList!.sections.count

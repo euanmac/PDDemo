@@ -27,16 +27,25 @@ The repo includes two dependencies. These are:
 * **markymark** - a MarkDown rendering package
 
 Both are included so the project/workspace should compile.
-The dependencies were installed originally using CocoaPods and the Podfile and Podfile.lock are included so there should be no need to redownload.
+The dependencies were installed originally using CocoaPods and the Podfile and Podfile.lock are included in repo so no need to "pod install".
 
 #  To Do
-* Persistance 
+* Persistance - partly complete. Markdown with inline images is not  cached and blocks as not loaded asynchronously 
 * Notes
+* Logging
 * Scroll content
 * ImageArticle Cell
-
+* Automated unit testing - need populate model with test JSON 
 
 #  Application Structure
+
+__Object Model__
+
+ContentfulDataManager
+Effectively the model manager in that it controls loading of the model objects and controls access to both Contentful API and also to filesystem for caching / saving data.
+Defines observer protocol - this can be implemented by any class wanting to know when Contentful data has been loaded. Observers need to register for updates.
+
+__View Controllers__
 
 HeaderViewController
 Takes a header and displays all articles listed - used as starting view controller for each tab (not home). No grouping.
@@ -47,9 +56,9 @@ Takes an article list and displays articles grouped by listsection.
 ArticleViewController
 Displays single article content (markdown)
 
-App Delegate -
-    Create TabBar and Navigation Controllers, one Home for all "Headers" and "Header" table view to show the header and articles under that header
-    Create a router and pass it to each of the  the 
+
+__App Delegate__
+Sets up the GUI and holds reference to ContentfulDataManager
 
 AppController
 start 

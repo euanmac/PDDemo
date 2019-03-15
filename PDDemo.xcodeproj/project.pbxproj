@@ -31,6 +31,8 @@
 		BE532FB921A371960060E19C /* ArticleListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE532FB821A371960060E19C /* ArticleListSection.swift */; };
 		BE532FBD21A3E9510060E19C /* StoryBoarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE532FBA21A3E9500060E19C /* StoryBoarded.swift */; };
 		BE532FBE21A3E9510060E19C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE532FBB21A3E9500060E19C /* Navigator.swift */; };
+		BEA92BD52231D35600128D02 /* ArticleNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA92BD42231D35600128D02 /* ArticleNotesViewController.swift */; };
+		BEA92BD72232E7A700128D02 /* ArticleNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA92BD62232E7A700128D02 /* ArticleNotes.swift */; };
 		BEE77B1F22307F48003F5FC3 /* MarkDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE77B1E22307F48003F5FC3 /* MarkDown.swift */; };
 		BEF85EA2222D098800177686 /* ContentfulCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF85EA1222D098800177686 /* ContentfulCache.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +66,8 @@
 		BE532FB821A371960060E19C /* ArticleListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListSection.swift; sourceTree = "<group>"; };
 		BE532FBA21A3E9500060E19C /* StoryBoarded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoarded.swift; sourceTree = "<group>"; };
 		BE532FBB21A3E9500060E19C /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		BEA92BD42231D35600128D02 /* ArticleNotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleNotesViewController.swift; sourceTree = "<group>"; };
+		BEA92BD62232E7A700128D02 /* ArticleNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleNotes.swift; sourceTree = "<group>"; };
 		BEE77B1E22307F48003F5FC3 /* MarkDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkDown.swift; sourceTree = "<group>"; };
 		BEF85EA1222D098800177686 /* ContentfulCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentfulCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,7 +121,9 @@
 				BE3333C32195FFBF0081FBBC /* ArticleSingle.swift */,
 				BE16C09F21C3999E009F68EF /* ArticleBase.swift */,
 				BE532FB821A371960060E19C /* ArticleListSection.swift */,
+				BEA92BD62232E7A700128D02 /* ArticleNotes.swift */,
 				BE33339B2192461D0081FBBC /* ArticleViewController.swift */,
+				BEA92BD42231D35600128D02 /* ArticleNotesViewController.swift */,
 				BE3333AF2194BB0B0081FBBC /* ArticleImageViewController.swift */,
 				BE22628921AD21C50007B3EE /* ArticleListViewController.swift */,
 				BE16C09B21BDD0A2009F68EF /* ArticleCheckListCell.swift */,
@@ -128,11 +134,11 @@
 				BE3333C12195725E0081FBBC /* Header.swift */,
 				BE22628721A5DC230007B3EE /* HeaderViewController.swift */,
 				0048475421985FF800C6F55C /* HomeViewController.swift */,
-				BE33339D2192461D0081FBBC /* Main.storyboard */,
 				BEE77B1E22307F48003F5FC3 /* MarkDown.swift */,
 				BE16C09D21BF1610009F68EF /* CheckListButton.swift */,
 				BE532FBB21A3E9500060E19C /* Navigator.swift */,
 				BE532FBA21A3E9500060E19C /* StoryBoarded.swift */,
+				BE33339D2192461D0081FBBC /* Main.storyboard */,
 				BE3333A2219246260081FBBC /* LaunchScreen.storyboard */,
 				BE3333A5219246260081FBBC /* Info.plist */,
 			);
@@ -273,10 +279,12 @@
 			files = (
 				BE3333C52195FFC10081FBBC /* ArticleSingle.swift in Sources */,
 				BE16C0A021C3999E009F68EF /* ArticleBase.swift in Sources */,
+				BEA92BD52231D35600128D02 /* ArticleNotesViewController.swift in Sources */,
 				BEE77B1F22307F48003F5FC3 /* MarkDown.swift in Sources */,
 				BE33339C2192461D0081FBBC /* ArticleViewController.swift in Sources */,
 				BE3333C62195FFC10081FBBC /* ArticleList.swift in Sources */,
 				BE3333C2219572610081FBBC /* Header.swift in Sources */,
+				BEA92BD72232E7A700128D02 /* ArticleNotes.swift in Sources */,
 				BE3333C02194BB420081FBBC /* ContentfulDataManager.swift in Sources */,
 				BE22628A21AD21C50007B3EE /* ArticleListViewController.swift in Sources */,
 				BE532FB921A371960060E19C /* ArticleListSection.swift in Sources */,
