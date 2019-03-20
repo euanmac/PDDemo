@@ -71,12 +71,16 @@ final class ArticleImage: ArticleBase {
         
         //Check we have content to convert, if not return empty attributed string
         guard let content = self.articleContent else {return NSAttributedString()}
+        return MarkyMark.getAttributedContent(from: content)
         
-        let markyMark = MarkyMark() { $0.setFlavor(ContentfulFlavor()) }
-        let markdownItems = markyMark.parseMarkDown(content)
-        let config = MarkDownToAttributedStringConverterConfiguration(styling: styling)
-        let converter = MarkDownConverter(configuration: config)
-        let attributedText = converter.convert(markdownItems)
-        return attributedText
     }
+    
+    //Convert MarkDown to AttributedString
+    func getAttributedContent(completion: @escaping ((NSAttributedString)->Void), styling: Styling = DefaultStyling()) -> NSAttributedString {
+        
+        //Check we have content to convert, if not return empty attributed string
+        guard let content = self.articleContent else {return NSAttributedString()}
+        return MarkyMark.getAttributedContent(from: content, completion: completion)
+    }
+        
 }

@@ -20,27 +20,24 @@ class ArticleViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //Check we have an article object
-        guard let _ = articleSingle else {
+        guard let articleSingle = articleSingle else {
             return
         }
-        self.title = articleSingle?.articleTitle
+        self.title = articleSingle.articleTitle
         self.navigationItem.largeTitleDisplayMode = .never
-        if let content = articleSingle?.articleContent {
-            articleText.attributedText = getAttributedText(text: content)
+        if articleSingle.hasContent {
+            articleText.attributedText = articleSingle.getAttributedContent(completion: renderedContent)
+            articleText.contentOffset.y = 0
+        }
+        
+    }
+    
+    //Call back when async rendering is done, needs to be on main thread
+    private func renderedContent(attributedText: NSAttributedString) {
+        DispatchQueue.main.async {
+            self.articleText.attributedText = attributedText
         }
     }
     
-    //Convert MarkDown to AttributedString
-    func getAttributedText(text: String, styling: Styling = DefaultStyling()) -> NSAttributedString {
-        let markyMark = MarkyMark() { $0.setFlavor(ContentfulFlavor()) }
-        let markdownItems = markyMark.parseMarkDown(text)
-        let config = MarkDownToAttributedStringConverterConfiguration(styling: styling)
-        
-        let converter = MarkDownConverter(configuration: config)
-        let attributedText = converter.convert(markdownItems)
-        return attributedText
-    }
-
-
 }
 

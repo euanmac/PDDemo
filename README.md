@@ -31,7 +31,8 @@ The dependencies were installed originally using CocoaPods and the Podfile and P
 
 #  To Do
 * Persistance - partly complete. Markdown with inline images is not  cached and blocks as not loaded asynchronously 
-* Notes
+* ~~Notes~~
+* Notes (Landscape mode)
 * Logging
 * Scroll content
 * ImageArticle Cell

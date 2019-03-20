@@ -41,7 +41,9 @@ class ArticleListViewController: UITableViewController, UIPopoverPresentationCon
             let vc = ArticleNotesViewController.instantiate()
             vc.articleNote = articleList.note
             vc.modalPresentationStyle = UIModalPresentationStyle.popover
+            vc.preferredContentSize = CGSize(width: 200, height: 300)
             let popover: UIPopoverPresentationController = vc.popoverPresentationController!
+            
             popover.barButtonItem = sender
             popover.delegate = self
             present(vc, animated: true, completion:nil)
@@ -61,7 +63,11 @@ class ArticleListViewController: UITableViewController, UIPopoverPresentationCon
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         //Setting the modal presentation style to none ensures always shown as a popover even on iphone
-        return UIModalPresentationStyle.none
+        if UIDevice.current.orientation.isPortrait {
+            return UIModalPresentationStyle.none
+        } else {
+            return UIModalPresentationStyle.currentContext
+        }
     }
     
     //This wont be called as we are always showing as popver - kept just in case notes needs to become full screen again in which case there will need to be some buttons to allow user to dismiss the notes view

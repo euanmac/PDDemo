@@ -34,7 +34,7 @@
 		BEA92BD52231D35600128D02 /* ArticleNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA92BD42231D35600128D02 /* ArticleNotesViewController.swift */; };
 		BEA92BD72232E7A700128D02 /* ArticleNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA92BD62232E7A700128D02 /* ArticleNotes.swift */; };
 		BEE77B1F22307F48003F5FC3 /* MarkDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE77B1E22307F48003F5FC3 /* MarkDown.swift */; };
-		BEF85EA2222D098800177686 /* ContentfulCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF85EA1222D098800177686 /* ContentfulCache.swift */; };
+		BEF85EA2222D098800177686 /* ContentfulImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF85EA1222D098800177686 /* ContentfulImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,7 +69,7 @@
 		BEA92BD42231D35600128D02 /* ArticleNotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleNotesViewController.swift; sourceTree = "<group>"; };
 		BEA92BD62232E7A700128D02 /* ArticleNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleNotes.swift; sourceTree = "<group>"; };
 		BEE77B1E22307F48003F5FC3 /* MarkDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkDown.swift; sourceTree = "<group>"; };
-		BEF85EA1222D098800177686 /* ContentfulCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentfulCache.swift; sourceTree = "<group>"; };
+		BEF85EA1222D098800177686 /* ContentfulImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentfulImageCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +129,7 @@
 				BE16C09B21BDD0A2009F68EF /* ArticleCheckListCell.swift */,
 				0007872C21E168E400A21FE5 /* ArticleImageCell.swift */,
 				BE1CC756219B4EA5009D524A /* CollapsibleTableViewHeader.swift */,
-				BEF85EA1222D098800177686 /* ContentfulCache.swift */,
+				BEF85EA1222D098800177686 /* ContentfulImageCache.swift */,
 				BE3333BF2194BB420081FBBC /* ContentfulDataManager.swift */,
 				BE3333C12195725E0081FBBC /* Header.swift */,
 				BE22628721A5DC230007B3EE /* HeaderViewController.swift */,
@@ -298,7 +298,7 @@
 				BE2157F421B48B7B00209109 /* ArticleImage.swift in Sources */,
 				BE3333982192461D0081FBBC /* AppDelegate.swift in Sources */,
 				BE532FBD21A3E9510060E19C /* StoryBoarded.swift in Sources */,
-				BEF85EA2222D098800177686 /* ContentfulCache.swift in Sources */,
+				BEF85EA2222D098800177686 /* ContentfulImageCache.swift in Sources */,
 				BE16C09C21BDD0A3009F68EF /* ArticleCheckListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

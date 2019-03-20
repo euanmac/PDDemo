@@ -131,6 +131,7 @@ final class ContentfulDataManager {
                 let syncHeaders = self.initHeaders(from: syncSpace)
                 completion(Result.success(syncHeaders))
                 
+                
             case .error(let err):
                 print("Oh no something went wrong: \(err)")
                 completion(Result.error(err))
@@ -160,6 +161,7 @@ final class ContentfulDataManager {
         do {
             try data.write(to: cacheFile)
         } catch {
+            //TODO: Log this
             fatalError("Couldnt write to cache " + cacheFile.absoluteString)
         }
         
@@ -194,7 +196,6 @@ final class ContentfulDataManager {
         let docsDir = fileManager.urls(for: .documentDirectory, in: .allDomainsMask).first!
         let notesFile = docsDir.appendingPathComponent(NOTES_FILE)
         print(notesFile.path)
-        
         
         //check file exists
         guard fileManager.fileExists(atPath: notesFile.path) else {
